@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineering Manuscript Studio | Publishing Guide for Undergraduate Engineers</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts for Editorial Academic Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Newsreader', 'serif'],
+            mono: ['Fira Code', 'monospace'],
+          },
+          colors: {
+            navy: {
+              850: '#111b2e',
+              900: '#0b1324',
+              950: '#060a14',
+            },
+            brand: {
+              blue: '#0284c7',
+              indigo: '#4f46e5',
+              teal: '#0d9488',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; }
+      .print-break { page-break-before: always; }
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased font-sans selection:bg-sky-100 selection:text-sky-900 min-h-screen flex flex-col">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded-lg bg-slate-900 text-sky-400 flex items-center justify-center font-mono font-bold text-lg shadow-sm group-hover:bg-sky-600 group-hover:text-white transition-colors">
+          &lt;/&gt;
+        </div>
+        <div>
+          <span class="font-bold text-slate-900 text-lg tracking-tight block leading-tight">EngPublish<span class="text-sky-600">.studio</span></span>
+          <span class="text-[10px] uppercase font-mono tracking-wider text-slate-500 font-medium">Undergraduate Research Portal</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-600">
+        <a href="#mindset" class="hover:text-sky-600 transition-colors">Mindset Shift</a>
+        <a href="#imrad" class="hover:text-sky-600 transition-colors">Paper Anatomy</a>
+        <a href="#rubric" class="hover:text-sky-600 transition-colors">100-Pt Rubric</a>
+        <a href="#exercises" class="hover:text-sky-600 transition-colors">Practice Lab</a>
+        <a href="#checklist" class="hover:text-sky-600 transition-colors">Pre-Flight</a>
+        <a href="#codes" class="hover:text-sky-600 transition-colors">Feedback Codes</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <button onclick="window.print()" class="no-print hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-slate-200 text-xs font-medium text-slate-700 bg-white hover:bg-slate-50 transition shadow-sm" title="Print or save as PDF">
+          <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          Export PDF
+        </button>
+        <button onclick="toggleHostingModal(true)" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-slate-900 text-xs font-medium text-white hover:bg-slate-800 transition shadow-sm">
+          <svg class="w-3.5 h-3.5 text-sky-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          Host on GitHub
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-b from-slate-900 via-navy-900 to-slate-900 text-white py-16 sm:py-24 border-b border-slate-800 relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none"></div>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-950/80 border border-sky-700/50 text-sky-300 text-xs font-mono uppercase tracking-wider mb-6">
+        <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse"></span>
+        IEEE / ASME / Elsevier Publication Guide
+      </div>
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-sans leading-tight">
+        From Lab Report to <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-teal-300 to-indigo-300">Journal Publication</span>
+      </h1>
+      <p class="mt-6 text-base sm:text-lg text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
+        A practical interactive workbench for undergraduate engineers. Master John Swales' CARS framework, separate raw results from engineering discussion, evaluate drafts with peer-review rubrics, and eradicate lab-report habits.
+      </p>
+
+      <!-- Quick Metrics Strip -->
+      <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur">
+          <div class="text-2xl font-bold font-mono text-sky-400">IMRaD</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wide">Structured Argumentation</div>
+        </div>
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur">
+          <div class="text-2xl font-bold font-mono text-teal-400">CARS</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wide">Create a Research Space</div>
+        </div>
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur">
+          <div class="text-2xl font-bold font-mono text-indigo-400">100 Pts</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wide">Analytic Rubric</div>
+        </div>
+        <div class="p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur">
+          <div class="text-2xl font-bold font-mono text-amber-400">5 Codes</div>
+          <div class="text-xs text-slate-400 mt-1 uppercase tracking-wide">Marginal Feedback System</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+    <!-- SECTION 1: Mindset Shift (Lab Report vs Journal) -->
+    <section id="mindset" class="scroll-mt-24">
+      <div class="border-l-4 border-sky-600 pl-4 mb-6">
+        <span class="text-xs font-mono font-semibold uppercase text-sky-600 tracking-wider">Concept 01</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">The Mindset Shift: Lab Report vs. Journal Article</h2>
+      </div>
+      <p class="text-slate-600 max-w-3xl leading-relaxed mb-8">
+        The most common trap for undergraduate researchers is writing in the form of a <em>chronological diary</em>. Published engineering papers are not records of how you spent your semester; they are <strong>persuasive rhetorical claims</strong> backed by verifiable physical data.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Lab Report Card -->
+        <div class="bg-white rounded-xl border border-rose-200/80 shadow-sm p-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-rose-100 text-rose-800 text-[10px] font-mono uppercase px-3 py-1 rounded-bl-lg font-bold">
+            Undergraduate Coursework Mindset
+          </div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-xl">✕</div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-lg">The Coursework Lab Report</h3>
+              <p class="text-xs text-slate-500">Compliance & Grading Mode</p>
+            </div>
+          </div>
+          <ul class="space-y-3.5 text-sm text-slate-600">
+            <li class="flex items-start gap-2.5">
+              <span class="text-rose-500 font-bold mt-0.5">•</span>
+              <span><strong>Audience:</strong> The course instructor or TA who already knows the answer and evaluates student obedience.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-rose-500 font-bold mt-0.5">•</span>
+              <span><strong>Narrative Arc:</strong> Chronological record (*"First we turned on the pump, then we took 5 readings"*).</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-rose-500 font-bold mt-0.5">•</span>
+              <span><strong>Handling Deficiencies:</strong> Often hidden or rationalized as *"human error"* to prevent grade deduction.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-rose-500 font-bold mt-0.5">•</span>
+              <span><strong>Data Presentation:</strong> Dumping raw software plots, multi-page data tables, and uncalibrated graphs.</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Journal Paper Card -->
+        <div class="bg-white rounded-xl border border-sky-200/80 shadow-sm p-6 relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-sky-100 text-sky-800 text-[10px] font-mono uppercase px-3 py-1 rounded-bl-lg font-bold">
+            Scholarly Publication Standard
+          </div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center font-bold text-xl">✓</div>
+            <div>
+              <h3 class="font-bold text-slate-900 text-lg">The Peer-Reviewed Journal Article</h3>
+              <p class="text-xs text-slate-500">Contribution & Archival Rigor</p>
+            </div>
+          </div>
+          <ul class="space-y-3.5 text-sm text-slate-600">
+            <li class="flex items-start gap-2.5">
+              <span class="text-sky-600 font-bold mt-0.5">•</span>
+              <span><strong>Audience:</strong> International subject-matter experts, skeptical reviewers, and future engineers attempting replication.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-sky-600 font-bold mt-0.5">•</span>
+              <span><strong>Narrative Arc:</strong> Problem-solution argument prioritizing the technical novelty and systemic significance.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-sky-600 font-bold mt-0.5">•</span>
+              <span><strong>Handling Deficiencies:</strong> Explicitly bounded through analytical uncertainty, standard deviation, and domain limitations.</span>
+            </li>
+            <li class="flex items-start gap-2.5">
+              <span class="text-sky-600 font-bold mt-0.5">•</span>
+              <span><strong>Data Presentation:</strong> Curated vector figures answering a singular scientific question with complete SI units and error bounds.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Anatomy of an Engineering Paper & CARS -->
+    <section id="imrad" class="scroll-mt-24">
+      <div class="border-l-4 border-teal-600 pl-4 mb-6">
+        <span class="text-xs font-mono font-semibold uppercase text-teal-600 tracking-wider">Concept 02</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Anatomy of an Engineering Paper: IMRaD & CARS</h2>
+      </div>
+      <p class="text-slate-600 max-w-3xl leading-relaxed mb-8">
+        Technical papers conform to universal structural patterns. Learn to build the 5-sentence Abstract, apply John Swales' CARS Model to the Introduction, and enforce the boundary between Results and Discussion.
+      </p>
+
+      <!-- Interactive Anatomy Tabs -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden" id="anatomyContainer">
+        <div class="flex border-b border-slate-200 bg-slate-50/70 overflow-x-auto text-sm font-medium">
+          <button onclick="switchTab('abstract')" id="tab-abstract" class="tab-btn px-6 py-3.5 text-sky-600 border-b-2 border-sky-600 bg-white font-semibold flex items-center gap-2 whitespace-nowrap">
+            <span class="w-2 h-2 rounded-full bg-sky-600"></span>
+            Title & 5-Sentence Abstract
+          </button>
+          <button onclick="switchTab('cars')" id="tab-cars" class="tab-btn px-6 py-3.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+            <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+            CARS Model (Introduction)
+          </button>
+          <button onclick="switchTab('methods')" id="tab-methods" class="tab-btn px-6 py-3.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+            <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+            Methodology & Reproducibility
+          </button>
+          <button onclick="switchTab('rvsd')" id="tab-rvsd" class="tab-btn px-6 py-3.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent flex items-center gap-2 whitespace-nowrap">
+            <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+            Results vs. Discussion
+          </button>
+        </div>
+
+        <!-- Tab 1: Abstract -->
+        <div id="content-abstract" class="tab-pane p-6 sm:p-8">
+          <div class="flex flex-col lg:flex-row gap-8">
+            <div class="lg:w-1/2 space-y-4">
+              <h3 class="text-xl font-bold text-slate-900">The 5-Sentence Abstract Formula</h3>
+              <p class="text-sm text-slate-600 leading-relaxed">
+                Reviewers and readers decide whether to read your paper within 60 seconds. A professional engineering abstract must avoid fluff and follow this exact five-part progression:
+              </p>
+              <div class="space-y-2.5 text-xs font-mono">
+                <div class="p-2.5 bg-slate-50 border-l-4 border-slate-400 rounded-r">
+                  <span class="font-bold text-slate-900 uppercase">Sentence 1: Context & Problem</span>
+                  <div class="text-slate-600 mt-0.5">What is the broad technological challenge and why does it matter?</div>
+                </div>
+                <div class="p-2.5 bg-rose-50 border-l-4 border-rose-500 rounded-r">
+                  <span class="font-bold text-rose-900 uppercase">Sentence 2: The Specific Gap</span>
+                  <div class="text-rose-700 mt-0.5">What are existing solutions missing or failing to resolve?</div>
+                </div>
+                <div class="p-2.5 bg-sky-50 border-l-4 border-sky-500 rounded-r">
+                  <span class="font-bold text-sky-900 uppercase">Sentence 3: The Proposed Contribution</span>
+                  <div class="text-sky-700 mt-0.5">What did you design, build, formulate, or simulate in this paper?</div>
+                </div>
+                <div class="p-2.5 bg-emerald-50 border-l-4 border-emerald-500 rounded-r">
+                  <span class="font-bold text-emerald-900 uppercase">Sentence 4: Key Quantitative Findings</span>
+                  <div class="text-emerald-800 mt-0.5">Hard numbers: metrics, percentage gains, uncertainties ($\pm$).</div>
+                </div>
+                <div class="p-2.5 bg-indigo-50 border-l-4 border-indigo-500 rounded-r">
+                  <span class="font-bold text-indigo-900 uppercase">Sentence 5: Engineering Implication</span>
+                  <div class="text-indigo-800 mt-0.5">What does this allow future engineers or industry systems to do?</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lg:w-1/2 bg-slate-900 text-slate-200 rounded-lg p-5 font-mono text-xs flex flex-col justify-between shadow-inner">
+              <div>
+                <div class="flex items-center justify-between pb-3 border-b border-slate-700 mb-3">
+                  <span class="text-sky-400 font-semibold tracking-wide uppercase">Annotated Abstract Example</span>
+                  <span class="text-slate-400 text-[11px]">118 Words</span>
+                </div>
+                <p class="leading-relaxed font-sans text-sm text-slate-300">
+                  <span class="bg-slate-800 text-slate-100 px-1 py-0.5 rounded font-mono text-xs" title="1. Context">High-speed trajectory tracking in multi-axis industrial manipulators often induces structural vibrations that degrade positioning accuracy in precision assembly.</span>
+                  <span class="bg-rose-950 text-rose-200 px-1 py-0.5 rounded font-mono text-xs" title="2. The Gap">However, conventional fixed-gain controllers fail to compensate for nonlinear inertial coupling across wide operating envelopes.</span>
+                  <span class="bg-sky-950 text-sky-200 px-1 py-0.5 rounded font-mono text-xs" title="3. The Contribution">This paper presents an empirical gain-scheduling PID methodology implemented on an articulated 3-DOF robotic arm to dynamically suppress oscillatory transients.</span>
+                  <span class="bg-emerald-950 text-emerald-200 px-1 py-0.5 rounded font-mono text-xs" title="4. Quantitative Metrics">Experimental testing over standard pick-and-place cycles demonstrated a 68% reduction in peak overshoot and decreased root-mean-square tracking error from 4.2 mm to 0.9 mm compared to factory baselines.</span>
+                  <span class="bg-indigo-950 text-indigo-200 px-1 py-0.5 rounded font-mono text-xs" title="5. Implication">These results demonstrate that systematic gain scheduling provides a computationally lightweight solution for high-throughput automated manufacturing.</span>
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
+                <span>Rule: Zero citations or undefined abbreviations in abstract.</span>
+                <span class="text-emerald-400 font-bold">✓ Ready for Indexing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: CARS Model -->
+        <div id="content-cars" class="tab-pane hidden p-6 sm:p-8">
+          <div class="max-w-4xl space-y-6">
+            <h3 class="text-xl font-bold text-slate-900">John Swales' CARS Model (Create a Research Space)</h3>
+            <p class="text-sm text-slate-600">
+              The Introduction must not begin with a broad philosophical history of the universe. Instead, it operates as a funnel moving through three progressive rhetorical moves:
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+              <div class="p-5 rounded-lg border border-slate-200 bg-slate-50">
+                <div class="text-xs font-mono font-bold text-sky-600 uppercase mb-2">Move 1</div>
+                <h4 class="font-bold text-slate-900 text-base mb-2">Establish Territory</h4>
+                <p class="text-slate-600 text-xs leading-relaxed">
+                  Demonstrate that the general engineering domain is important, active, and relevant. Synthesize 5–10 recent peer-reviewed citations.
+                </p>
+                <div class="mt-4 p-2 bg-white rounded border border-slate-200 text-xs italic text-slate-500">
+                  "Lithium-ion thermal management remains a critical bottleneck in extending electric vehicle battery life [1-4]..."
+                </div>
+              </div>
+
+              <div class="p-5 rounded-lg border border-slate-200 bg-slate-50">
+                <div class="text-xs font-mono font-bold text-amber-600 uppercase mb-2">Move 2</div>
+                <h4 class="font-bold text-slate-900 text-base mb-2">Establish a Niche</h4>
+                <p class="text-slate-600 text-xs leading-relaxed">
+                  Identify the shortcoming, counter-claim, or boundary of prior methods. This is the pivot where you justify your study's existence.
+                </p>
+                <div class="mt-4 p-2 bg-white rounded border border-slate-200 text-xs italic text-slate-500">
+                  "However, existing microchannel cold-plate geometries suffer from non-uniform surface temperature gradients exceeding 8°C [5]..."
+                </div>
+              </div>
+
+              <div class="p-5 rounded-lg border border-slate-200 bg-slate-50">
+                <div class="text-xs font-mono font-bold text-emerald-600 uppercase mb-2">Move 3</div>
+                <h4 class="font-bold text-slate-900 text-base mb-2">Occupy the Niche</h4>
+                <p class="text-slate-600 text-xs leading-relaxed">
+                  State plainly what you did, itemize the novelty of your solution, and provide a clear roadmap of the paper's organization.
+                </p>
+                <div class="mt-4 p-2 bg-white rounded border border-slate-200 text-xs italic text-slate-500">
+                  "In this paper, we propose a bionic bifurcated cooling manifold. The specific contributions of this work are threefold: 1)..."
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Methods -->
+        <div id="content-methods" class="tab-pane hidden p-6 sm:p-8">
+          <div class="max-w-4xl space-y-6">
+            <h3 class="text-xl font-bold text-slate-900">Methodology: The Independent Replication Test</h3>
+            <p class="text-sm text-slate-600">
+              The core criterion of an engineering Methods section is <strong>reproducibility</strong>: could an engineer in Tokyo, Munich, or Chicago build the identical setup using only your paper?
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
+              <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
+                <span class="font-bold text-slate-800 uppercase block text-sm font-sans">Physical Experiments Must State:</span>
+                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                  <li>Specific material grades (e.g., Al 6061-T6, not just "aluminum")</li>
+                  <li>ASTM/ISO standard test specifications</li>
+                  <li>Instrument model numbers, load cell limits, & sample rates</li>
+                  <li>Measurement uncertainties & calibration limits (e.g., $\pm 0.5\%$)</li>
+                  <li>Ambient conditions (ambient temp, humidity, pressure)</li>
+                </ul>
+              </div>
+
+              <div class="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
+                <span class="font-bold text-slate-800 uppercase block text-sm font-sans">Simulations / Code Must State:</span>
+                <ul class="list-disc list-inside space-y-1 text-slate-600">
+                  <li>Governing equations & physical assumptions (e.g., incompressible)</li>
+                  <li>Mesh convergence study details (grid convergence index - GCI)</li>
+                  <li>Boundary conditions (inlet velocity, wall heat flux, slip)</li>
+                  <li>Solver configuration, discretization schemes, residual tolerances</li>
+                  <li>Hardware runtime environment & software versions</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 4: Results vs Discussion -->
+        <div id="content-rvsd" class="tab-pane hidden p-6 sm:p-8">
+          <div class="max-w-4xl space-y-6">
+            <h3 class="text-xl font-bold text-slate-900">Results vs. Discussion: Enforcing the Boundary</h3>
+            <p class="text-sm text-slate-600">
+              Conflating observation with speculation is the most common undergraduate rejection reason. Keep them disciplined:
+            </p>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs sm:text-sm border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-300 bg-slate-100 text-slate-700 font-mono">
+                    <th class="p-3">Section</th>
+                    <th class="p-3">Core Objective</th>
+                    <th class="p-3">Permitted Content</th>
+                    <th class="p-3 text-rose-600">Prohibited Content</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 text-slate-600">
+                  <tr>
+                    <td class="p-3 font-bold font-mono text-sky-700">Results</td>
+                    <td class="p-3">Objective presentation of data trends and quantitative facts.</td>
+                    <td class="p-3">Direct callouts to figures/tables, exact numerical metrics, variance, statistical significance ($p$-values).</td>
+                    <td class="p-3 text-rose-600">Speculation on causes, comparing against other authors, value judgments (*"great result"*).</td>
+                  </tr>
+                  <tr>
+                    <td class="p-3 font-bold font-mono text-indigo-700">Discussion</td>
+                    <td class="p-3">Interpretation, scientific mechanisms, and theoretical context.</td>
+                    <td class="p-3">Physical explanations (fluid dynamics, solid mechanics), comparing against literature, honest limitations, anomalies.</td>
+                    <td class="p-3 text-rose-600">Introducing brand new data or figures that were not shown in the Results section.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: 100-Point Analytic Evaluation Rubric -->
+    <section id="rubric" class="scroll-mt-24">
+      <div class="border-l-4 border-indigo-600 pl-4 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase text-indigo-600 tracking-wider">Concept 03</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Interactive Manuscript Evaluation Rubric</h2>
+          <p class="text-slate-600 text-sm mt-1">Calibrated for standard journal peer-review assessment (ASME/IEEE/Elsevier).</p>
+        </div>
+
+        <!-- Live Score Tally Box -->
+        <div class="no-print bg-slate-900 text-white px-5 py-3 rounded-xl flex items-center gap-5 shadow-md">
+          <div>
+            <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400">Total Score</div>
+            <div class="text-3xl font-mono font-bold text-sky-400" id="liveScore">100<span class="text-sm text-slate-400">/100</span></div>
+          </div>
+          <div class="border-l border-slate-700 pl-4">
+            <div class="text-[10px] uppercase font-mono tracking-wider text-slate-400">Assessment</div>
+            <div class="text-xs font-semibold text-emerald-400" id="scoreStatus">Ready for Submission</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rubric Category List -->
+      <div class="space-y-4" id="rubricCategories">
+        <!-- JS will populate these or standard static template with radio inputs -->
+      </div>
+    </section>
+
+    <!-- SECTION 4: Interactive Critique & Rewrite Workshop -->
+    <section id="exercises" class="scroll-mt-24">
+      <div class="border-l-4 border-amber-500 pl-4 mb-6">
+        <span class="text-xs font-mono font-semibold uppercase text-amber-600 tracking-wider">Concept 04</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Interactive Critique & Rewrite Workshop</h2>
+      </div>
+      <p class="text-slate-600 max-w-3xl leading-relaxed mb-8">
+        Put yourself in the shoes of a peer reviewer. Read three authentic flawed undergraduate engineering drafts, list the deficiencies, type your own corrected version, and compare it against the instructor key and model rewrite.
+      </p>
+
+      <!-- Exercise 1 -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8 mb-8">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded bg-amber-100 text-amber-800 font-mono text-xs font-bold">Exercise 1</span>
+            <h3 class="font-bold text-slate-900 text-lg">Title & Abstract: Robotics / Gain-Scheduled Control</h3>
+          </div>
+          <span class="text-xs text-slate-500 font-mono">10 Points Possible</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <!-- Flawed Draft Box -->
+          <div class="bg-rose-50/60 border border-rose-200 rounded-lg p-4">
+            <span class="text-xs font-mono font-bold text-rose-800 uppercase block mb-1">Flawed Student Draft:</span>
+            <div class="font-serif text-slate-800 text-sm leading-relaxed italic bg-white p-3.5 rounded border border-rose-100">
+              <p class="font-bold mb-2 font-sans not-italic text-slate-900 text-xs">Title: A New and Better Way to Make Robotic Arms Move Smoothly Using PID Control</p>
+              "Industrial robotic arms are used in a lot of factories these days, but sometimes they shake too much when moving fast. This creates problems for precision assembly tasks. In this project, we tried using a tuned PID controller on a 3-DOF robotic arm to see if we could make it track trajectories better. We changed the Kp, Ki, and Kd gains until the arm stopped vibrating. The tests showed that our control scheme ran very fast and got rid of almost all the overshoot. It worked way better than the factory defaults, proving that our method is an optimal choice for manufacturing automation."
+            </div>
+            <div class="mt-3 flex flex-wrap gap-2 text-[11px] font-mono text-rose-700">
+              <span class="bg-rose-100 px-2 py-0.5 rounded">[HYP] "New and Better"</span>
+              <span class="bg-rose-100 px-2 py-0.5 rounded">[MET] "ran very fast"</span>
+              <span class="bg-rose-100 px-2 py-0.5 rounded">[REP] Vague tuning</span>
+            </div>
+          </div>
+
+          <!-- Student Workspace -->
+          <div class="flex flex-col justify-between space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase font-mono mb-1">1. Identify at least 3 critical flaws:</label>
+              <textarea placeholder="e.g., Unprofessional promotional title; Tuning is described as trial-and-error without mathematical algorithm; Zero quantitative metrics for settling time or overshoot %..." class="w-full h-20 text-xs p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 font-mono"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase font-mono mb-1">2. Your publication-ready rewrite:</label>
+              <textarea placeholder="Write a revised title and five-sentence structured abstract here..." class="w-full h-24 text-xs p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 font-mono"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion Solution Comparison -->
+        <div>
+          <button onclick="toggleSolution('sol-1')" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold font-mono flex items-center justify-between transition">
+            <span>SHOW INSTRUCTOR REFERENCE KEY & MODEL REWRITE</span>
+            <svg id="arrow-sol-1" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          
+          <div id="sol-1" class="hidden mt-4 p-5 bg-slate-900 text-slate-200 rounded-lg text-xs font-mono space-y-4">
+            <div>
+              <span class="text-amber-400 font-bold uppercase tracking-wider block mb-1">Instructor Flaw Breakdown:</span>
+              <ul class="list-disc list-inside space-y-1 text-slate-300">
+                <li><strong class="text-white">Title:</strong> Subjective promo words ("New and Better") violate academic conventions. Lacks indexing keywords.</li>
+                <li><strong class="text-white">Methods:</strong> "Changed gains until it stopped vibrating" indicates uncontrolled guessing rather than systematic tuning.</li>
+                <li><strong class="text-white">Metrics:</strong> Zero quantitative metrics (no error in millimeters, no rise time, no % overshoot reduction).</li>
+                <li><strong class="text-white">Rhetoric:</strong> Claiming an unproven "optimal choice" is an over-extrapolated generalization.</li>
+              </ul>
+            </div>
+            <div class="border-t border-slate-800 pt-3">
+              <span class="text-emerald-400 font-bold uppercase tracking-wider block mb-1">Model Peer-Reviewed Rewrite:</span>
+              <p class="font-bold text-white font-sans text-sm mb-1">Vibration Suppression and Trajectory Tracking in a 3-DOF Robotic Manipulator Using Gain-Scheduled PID Control</p>
+              <p class="font-sans text-slate-300 leading-relaxed text-xs">
+                High-speed trajectory tracking in multi-axis industrial manipulators often induces structural vibrations that degrade positioning accuracy in precision assembly. This paper presents an empirical gain-scheduling PID tuning methodology implemented on an articulated 3-DOF robotic arm. Controller gains were optimized across high-velocity operational envelopes to suppress oscillatory transients. Experimental evaluation over standard pick-and-place trajectories demonstrated a 68% reduction in peak overshoot and decreased root-mean-square tracking error from 4.2 mm to 0.9 mm relative to unoptimized factory PID baselines. Settling time improved by 34.5% without motor current saturation. These results demonstrate that systematic gain scheduling offers a computationally lightweight solution for high-throughput automated assembly lines.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise 2 -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8 mb-8">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded bg-amber-100 text-amber-800 font-mono text-xs font-bold">Exercise 2</span>
+            <h3 class="font-bold text-slate-900 text-lg">Methodology: Forced Convection Thermal Channel</h3>
+          </div>
+          <span class="text-xs text-slate-500 font-mono">10 Points Possible</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div class="bg-rose-50/60 border border-rose-200 rounded-lg p-4">
+            <span class="text-xs font-mono font-bold text-rose-800 uppercase block mb-1">Flawed Student Draft:</span>
+            <div class="font-serif text-slate-800 text-sm leading-relaxed italic bg-white p-3.5 rounded border border-rose-100">
+              "To test heat transfer, we built a small channel out of acrylic and put a copper plate on the bottom. We heated the plate using an electric heater connected to a DC power supply. Water was pumped through the channel from a reservoir on the lab bench. We measured the temperature using some thermocouples glued to the copper surface and in the water stream. We ran the pump at different speeds to see what happened to the heat transfer coefficient when the flow went faster. Data was recorded onto an Arduino board until the system got hot enough and reached steady state."
+            </div>
+            <div class="mt-3 flex flex-wrap gap-2 text-[11px] font-mono text-rose-700">
+              <span class="bg-rose-100 px-2 py-0.5 rounded">[REP] Missing dimensions</span>
+              <span class="bg-rose-100 px-2 py-0.5 rounded">[REP] No flow rates / Re</span>
+              <span class="bg-rose-100 px-2 py-0.5 rounded">[MET] Vague steady-state</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col justify-between space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase font-mono mb-1">1. Identify missing reproducibility parameters:</label>
+              <textarea placeholder="List missing dimensions, flow parameters, sensor models, calibration, power inputs..." class="w-full h-20 text-xs p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-sky-500 font-mono"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase font-mono mb-1">2. Your publication-ready rewrite:</label>
+              <textarea placeholder="Write formal procedural methods with equipment specifications and tolerances..." class="w-full h-24 text-xs p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-sky-500 font-mono"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button onclick="toggleSolution('sol-2')" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold font-mono flex items-center justify-between transition">
+            <span>SHOW INSTRUCTOR REFERENCE KEY & MODEL REWRITE</span>
+            <svg id="arrow-sol-2" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          
+          <div id="sol-2" class="hidden mt-4 p-5 bg-slate-900 text-slate-200 rounded-lg text-xs font-mono space-y-4">
+            <div>
+              <span class="text-amber-400 font-bold uppercase tracking-wider block mb-1">Instructor Flaw Breakdown:</span>
+              <ul class="list-disc list-inside space-y-1 text-slate-300">
+                <li><strong class="text-white">Geometry:</strong> "Small channel" provides zero dimensions (L, W, H, hydraulic diameter). Material grade missing.</li>
+                <li><strong class="text-white">Instrumentation:</strong> Undefined thermocouple types, wire gauge, calibration standards, or DAQ bit resolution.</li>
+                <li><strong class="text-white">Boundary Conditions:</strong> Flow velocity, mass flow rates, Reynolds numbers, and applied heat flux are missing.</li>
+                <li><strong class="text-white">Equilibrium:</strong> "Got hot enough" lacks an operational steady-state definition (e.g., &Delta;T &lt; 0.1&deg;C over 5 min).</li>
+              </ul>
+            </div>
+            <div class="border-t border-slate-800 pt-3">
+              <span class="text-emerald-400 font-bold uppercase tracking-wider block mb-1">Model Peer-Reviewed Rewrite:</span>
+              <p class="font-sans text-slate-300 leading-relaxed text-xs">
+                Forced convection heat transfer was evaluated inside a rectangular test channel (L = 500 mm, W = 50 mm, H = 10 mm) fabricated from 10 mm-thick transparent cast acrylic (k = 0.19 W/(m·K)). The channel floor featured an oxygen-free high-conductivity (OFHC) copper baseplate (100 × 50 × 6 mm) heated from below by an etched-foil electrical resistance heater (Omega Engineering, 200 W capacity). Input power was regulated via a programmable DC power supply (BK Precision 9115) to maintain a constant heat flux of q'' = 15.0 ± 0.2 kW/m². Deionized water was circulated using a variable-speed gear pump across Reynolds numbers ranging from Re = 1,200 to 8,500. Surface temperatures were acquired using six calibrated Type-T thermocouples (gauge 36 AWG, uncertainty ±0.2°C) embedded flush within the copper plate at 15 mm intervals along the flow direction. Inlet and outlet fluid temperatures were measured using inline RTD probes. Steady-state conditions were logged via a 16-bit DAQ module (NI-9214) when temperature fluctuations remained within ±0.1°C over a 5-minute sampling window.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise 3 -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-4">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded bg-amber-100 text-amber-800 font-mono text-xs font-bold">Exercise 3</span>
+            <h3 class="font-bold text-slate-900 text-lg">Results & Data Reporting: GaN Buck Converter</h3>
+          </div>
+          <span class="text-xs text-slate-500 font-mono">10 Points Possible</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <div class="bg-rose-50/60 border border-rose-200 rounded-lg p-4">
+            <span class="text-xs font-mono font-bold text-rose-800 uppercase block mb-1">Flawed Student Draft:</span>
+            <div class="font-serif text-slate-800 text-sm leading-relaxed italic bg-white p-3.5 rounded border border-rose-100">
+              "Figure 5 shows the efficiency graph of the buck converter circuit. It is obvious that our design is extremely efficient. At low currents, the efficiency drops because of switching losses, which makes total sense based on circuit theory. The peak efficiency was measured around 94%, which beats the baseline converter made by Texas Instruments. There is a weird dip at 2.5 A, but that was probably just noise on the oscilloscope or the probe wires being loose during that trial. Overall, the circuit demonstrated phenomenal performance, proving that gallium nitride transistors should always be used instead of standard silicon MOSFETs."
+            </div>
+            <div class="mt-3 flex flex-wrap gap-2 text-[11px] font-mono text-rose-700">
+              <span class="bg-rose-100 px-2 py-0.5 rounded">[HYP] "phenomenal"</span>
+              <span class="bg-rose-100 px-2 py-0.5 rounded">[ANO] "loose wires"</span>
+              <span class="bg-rose-100 px-2 py-0.5 rounded">[CON] Blurs theory into results</span>
+            </div>
+          </div>
+
+          <div class="flex flex-col justify-between space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase font-mono mb-1">1. Identify hyperbole, conflations, and hand-waved anomalies:</label>
+              <textarea placeholder="List colloquialisms, subjective statements, unverified experimental errors..." class="w-full h-20 text-xs p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-sky-500 font-mono"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase font-mono mb-1">2. Your publication-ready rewrite:</label>
+              <textarea placeholder="Write objective data statements with uncertainty and systematic explanation of deviations..." class="w-full h-24 text-xs p-2.5 rounded border border-slate-300 focus:ring-2 focus:ring-sky-500 font-mono"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <button onclick="toggleSolution('sol-3')" class="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-lg text-xs font-bold font-mono flex items-center justify-between transition">
+            <span>SHOW INSTRUCTOR REFERENCE KEY & MODEL REWRITE</span>
+            <svg id="arrow-sol-3" class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          
+          <div id="sol-3" class="hidden mt-4 p-5 bg-slate-900 text-slate-200 rounded-lg text-xs font-mono space-y-4">
+            <div>
+              <span class="text-amber-400 font-bold uppercase tracking-wider block mb-1">Instructor Flaw Breakdown:</span>
+              <ul class="list-disc list-inside space-y-1 text-slate-300">
+                <li><strong class="text-white">Hyperbole:</strong> "Extremely efficient", "phenomenal performance", and "makes total sense" are unscholarly.</li>
+                <li><strong class="text-white">Hand-Waving Anomaly:</strong> Dismissing a 2.5 A drop as "loose wires" undermines scientific credibility. Must verify repeatability ($n=5$).</li>
+                <li><strong class="text-white">Conflation:</strong> Blends raw efficiency numbers with theoretical explanations and unsubstantiated general claims ("GaN should always be used").</li>
+              </ul>
+            </div>
+            <div class="border-t border-slate-800 pt-3">
+              <span class="text-emerald-400 font-bold uppercase tracking-wider block mb-1">Model Peer-Reviewed Rewrite:</span>
+              <p class="font-sans text-slate-300 leading-relaxed text-xs">
+                The conversion efficiency of the synchronous buck converter as a function of load current (I_out = 0.5 A to 5.0 A) at a constant output of 12 V is shown in Fig. 5. Peak efficiency reached 94.2 ± 0.4% at an intermediate load of I_out = 2.0 A, representing a 2.8% improvement over the silicon reference benchmark (TI TPS54560). As load current decreased below 1.0 A, efficiency dropped to 86.1% due to gate-charge and core switching losses dominating conduction losses. A localized decrease in efficiency (91.8%) was recorded at I_out = 2.5 A; subsequent replicate trials (n = 5) confirmed this deviation was reproducible within ±0.3%, corresponding to the onset of discontinuous conduction mode (DCM) boundary oscillations. Across all operational loads above 1.5 A, the GaN-based architecture maintained an efficiency greater than 91.5%.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: Pre-Flight Submission Checklist -->
+    <section id="checklist" class="scroll-mt-24">
+      <div class="border-l-4 border-sky-600 pl-4 mb-6">
+        <span class="text-xs font-mono font-semibold uppercase text-sky-600 tracking-wider">Concept 05</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Pre-Flight Submission Checklist</h2>
+      </div>
+      <p class="text-slate-600 max-w-3xl leading-relaxed mb-6">
+        Do not send your manuscript to your principal investigator (PI) or a journal editor until every single item below is verified.
+      </p>
+
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8">
+        <!-- Progress Bar -->
+        <div class="mb-6 pb-6 border-b border-slate-200">
+          <div class="flex items-center justify-between text-xs font-mono mb-2">
+            <span class="font-bold text-slate-700 uppercase">Verification Progress</span>
+            <span id="checkProgressText" class="text-sky-600 font-bold">0 of 12 Completed (0%)</span>
+          </div>
+          <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+            <div id="checkProgressBar" class="h-full bg-sky-600 transition-all duration-300 w-0"></div>
+          </div>
+        </div>
+
+        <!-- Checklist Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-sans text-slate-700" id="checklistContainer">
+          <!-- Item 1 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Title & Keywords:</strong> Title is under 15 words, free of filler words (*"A Study of..."*), and contains core indexing terms.</span>
+          </label>
+          <!-- Item 2 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Abstract Metrics:</strong> Abstract contains at least two specific numerical performance metrics with tolerances.</span>
+          </label>
+          <!-- Item 3 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Introduction Gap:</strong> Introduction features an explicit niche sentence (e.g., *"However, previous works fail to..."*).</span>
+          </label>
+          <!-- Item 4 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Equipment Specifics:</strong> Instrument manufacturers, model numbers, sensitivities, and calibration bounds are documented.</span>
+          </label>
+          <!-- Item 5 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Variables Defined:</strong> All equation symbols and variables are defined immediately beneath each equation.</span>
+          </label>
+          <!-- Item 6 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Figure Autonomy:</strong> Every figure is vector resolution (or &gt;300 DPI) and understandable from caption alone.</span>
+          </label>
+          <!-- Item 7 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Axes & SI Units:</strong> Every plot axis has a variable name, symbol, and SI unit in parentheses (e.g., Stress &sigma; [MPa]).</span>
+          </label>
+          <!-- Item 8 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Error Bars:</strong> Statistical variance or uncertainty bands are plotted and defined ($n = \text{samples}$, &plusmn;SD).</span>
+          </label>
+          <!-- Item 9 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Results Discipline:</strong> Results section reports pure data trends without speculative "why" assumptions.</span>
+          </label>
+          <!-- Item 10 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Benchmarking:</strong> Discussion explicitly compares your data against published literature or theoretical models.</span>
+          </label>
+          <!-- Item 11 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Limitations Stated:</strong> A dedicated subsection or paragraph frankly addresses operational limits and boundaries.</span>
+          </label>
+          <!-- Item 12 -->
+          <label class="flex items-start gap-3 p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+            <input type="checkbox" onchange="updateChecklist()" class="mt-0.5 rounded text-sky-600 focus:ring-sky-500 w-4 h-4">
+            <span><strong>Citation Standards:</strong> References adhere strictly to journal IEEE/Elsevier format with valid DOIs and no raw URLs.</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: Quick Marginal Annotation Codes -->
+    <section id="codes" class="scroll-mt-24">
+      <div class="border-l-4 border-slate-700 pl-4 mb-6">
+        <span class="text-xs font-mono font-semibold uppercase text-slate-500 tracking-wider">Concept 06</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Marginal Feedback Decoder Key</h2>
+      </div>
+      <p class="text-slate-600 max-w-3xl leading-relaxed mb-6">
+        Instructors and peer-reviewers use these shorthand marginal annotations when marking up manuscript drafts. Use this lookup key to interpret review feedback:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <span class="inline-block px-2.5 py-1 rounded bg-sky-100 text-sky-800 font-mono text-xs font-bold mb-2">[MET]</span>
+            <h4 class="font-bold text-slate-900 text-sm">Metric Missing</h4>
+            <p class="text-slate-600 text-xs mt-1">Vague adjective used ("fast", "high efficiency"). Replace with a number, SI unit, and tolerance.</p>
+          </div>
+          <div class="mt-4 pt-2 border-t border-slate-100 text-[11px] font-mono text-slate-500">Fix: State &plusmn;% or error</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <span class="inline-block px-2.5 py-1 rounded bg-amber-100 text-amber-800 font-mono text-xs font-bold mb-2">[REP]</span>
+            <h4 class="font-bold text-slate-900 text-sm">Reproducibility</h4>
+            <p class="text-slate-600 text-xs mt-1">Missing dimension, hardware model, material grade, or boundary condition needed for replication.</p>
+          </div>
+          <div class="mt-4 pt-2 border-t border-slate-100 text-[11px] font-mono text-slate-500">Fix: Add part # & specs</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <span class="inline-block px-2.5 py-1 rounded bg-rose-100 text-rose-800 font-mono text-xs font-bold mb-2">[CON]</span>
+            <h4 class="font-bold text-slate-900 text-sm">Conflation</h4>
+            <p class="text-slate-600 text-xs mt-1">Conflating raw Results with subjective Discussion or speculation in the same sentence.</p>
+          </div>
+          <div class="mt-4 pt-2 border-t border-slate-100 text-[11px] font-mono text-slate-500">Fix: Split facts from theory</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <span class="inline-block px-2.5 py-1 rounded bg-purple-100 text-purple-800 font-mono text-xs font-bold mb-2">[HYP]</span>
+            <h4 class="font-bold text-slate-900 text-sm">Hyperbole</h4>
+            <p class="text-slate-600 text-xs mt-1">Promotional, sensational, or unscientific wording ("novel miracle", "optimal", "phenomenal").</p>
+          </div>
+          <div class="mt-4 pt-2 border-t border-slate-100 text-[11px] font-mono text-slate-500">Fix: Use neutral academic tone</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <span class="inline-block px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 font-mono text-xs font-bold mb-2">[ANO]</span>
+            <h4 class="font-bold text-slate-900 text-sm">Hand-waved Anomaly</h4>
+            <p class="text-slate-600 text-xs mt-1">Dismissing an unexpected data point as "glitches" or "loose wires" without repeating tests.</p>
+          </div>
+          <div class="mt-4 pt-2 border-t border-slate-100 text-[11px] font-mono text-slate-500">Fix: Verify $n \ge 3$ or explain physics</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-10 mt-20 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-sans">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-900 font-mono">EngPublish Studio</span>
+        <span>&mdash; Open-access technical writing toolkit for undergraduate engineering researchers.</span>
+      </div>
+      <div class="flex items-center gap-4 font-mono">
+        <button onclick="toggleHostingModal(true)" class="hover:text-sky-600 transition">GitHub Deployment Guide</button>
+        <span>&bull;</span>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hover:text-sky-600 transition">Back to Top &uarr;</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- GitHub Hosting Instructions Modal -->
+  <div id="hostingModal" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden no-print">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative">
+      <button onclick="toggleHostingModal(false)" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-xl font-bold">&times;</button>
+      
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center">
+          <svg class="w-5 h-5 text-sky-400" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </div>
+        <div>
+          <h3 class="font-bold text-slate-900 text-lg">Deploy to GitHub Pages in 3 Minutes</h3>
+          <p class="text-xs text-slate-500">Zero build tools, zero server setup required.</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 text-xs text-slate-600 font-sans my-5">
+        <div class="flex items-start gap-3">
+          <span class="w-5 h-5 rounded-full bg-sky-100 text-sky-800 font-mono font-bold flex items-center justify-center shrink-0">1</span>
+          <div>
+            <strong class="text-slate-900 block mb-0.5">Save this file as <code>index.html</code></strong>
+            Save this single HTML file directly to your local computer.
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <span class="w-5 h-5 rounded-full bg-sky-100 text-sky-800 font-mono font-bold flex items-center justify-center shrink-0">2</span>
+          <div>
+            <strong class="text-slate-900 block mb-0.5">Create a GitHub Repository</strong>
+            Go to <a href="https://github.com/new" target="_blank" class="text-sky-600 underline">github.com/new</a>, name it (e.g., <code>engineering-writing-portal</code>), and push or upload <code>index.html</code> to the <code>main</code> branch.
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <span class="w-5 h-5 rounded-full bg-sky-100 text-sky-800 font-mono font-bold flex items-center justify-center shrink-0">3</span>
+          <div>
+            <strong class="text-slate-900 block mb-0.5">Enable GitHub Pages</strong>
+            In your GitHub repo, go to <strong>Settings</strong> &rarr; <strong>Pages</strong>. Under <strong>Branch</strong>, select <code>main</code> and root <code>/</code>, then click <strong>Save</strong>. Your portal will be live at <code>https://&lt;your-username&gt;.github.io/&lt;repo-name&gt;/</code>!
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-[11px] font-mono text-slate-500 flex items-center justify-between">
+        <span>Static, offline-capable single HTML file</span>
+        <button onclick="toggleHostingModal(false)" class="px-3 py-1 bg-slate-900 text-white rounded font-sans text-xs">Got it</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Interactive Engine -->
+  <script>
+    // Tab Switching for IMRaD & CARS
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('text-sky-600', 'border-sky-600', 'bg-white', 'font-semibold');
+        btn.classList.add('text-slate-600', 'border-transparent');
+        const dot = btn.querySelector('span');
+        if (dot) dot.className = 'w-2 h-2 rounded-full bg-slate-300';
+      });
+
+      document.querySelectorAll('.tab-pane').forEach(pane => {
+        pane.classList.add('hidden');
+      });
+
+      const activeBtn = document.getElementById('tab-' + tabId);
+      activeBtn.classList.add('text-sky-600', 'border-sky-600', 'bg-white', 'font-semibold');
+      activeBtn.classList.remove('text-slate-600', 'border-transparent');
+      const activeDot = activeBtn.querySelector('span');
+      if (activeDot) activeDot.className = 'w-2 h-2 rounded-full bg-sky-600';
+
+      document.getElementById('content-' + tabId).classList.remove('hidden');
+    }
+
+    // Interactive Accordion for Model Solutions
+    function toggleSolution(id) {
+      const el = document.getElementById(id);
+      const arrow = document.getElementById('arrow-' + id);
+      if (el.classList.contains('hidden')) {
+        el.classList.remove('hidden');
+        if (arrow) arrow.classList.add('rotate-180');
+      } else {
+        el.classList.add('hidden');
+        if (arrow) arrow.classList.remove('rotate-180');
+      }
+    }
+
+    // Hosting Modal Toggle
+    function toggleHostingModal(show) {
+      const modal = document.getElementById('hostingModal');
+      if (show) {
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    // 100-Point Rubric Data & Dynamic Rendering
+    const rubricData = [
+      {
+        id: "abs",
+        title: "1. Abstract & Title",
+        weight: 10,
+        desc: "Title concise, specific; Abstract strictly follows 5-sentence arc with quantitative metrics.",
+        tiers: [
+          { name: "Exemplary", val: 10, label: "10 pts (Full)" },
+          { name: "Proficient", val: 8, label: "8 pts (-2)" },
+          { name: "Developing", val: 6, label: "6 pts (-4)" },
+          { name: "Unsatisfactory", val: 3, label: "3 pts (-7)" }
+        ]
+      },
+      {
+        id: "intro",
+        title: "2. Introduction & CARS Niche",
+        weight: 15,
+        desc: "Synthesizes literature, establishes explicit niche, and itemizes contributions clearly.",
+        tiers: [
+          { name: "Exemplary", val: 15, label: "15 pts (Full)" },
+          { name: "Proficient", val: 12, label: "12 pts (-3)" },
+          { name: "Developing", val: 9, label: "9 pts (-6)" },
+          { name: "Unsatisfactory", val: 5, label: "5 pts (-10)" }
+        ]
+      },
+      {
+        id: "methods",
+        title: "3. Methodology & Reproducibility",
+        weight: 20,
+        desc: "Independent engineer could replicate all experiments/simulations without guessing.",
+        tiers: [
+          { name: "Exemplary", val: 20, label: "20 pts (Full)" },
+          { name: "Proficient", val: 16, label: "16 pts (-4)" },
+          { name: "Developing", val: 12, label: "12 pts (-8)" },
+          { name: "Unsatisfactory", val: 6, label: "6 pts (-14)" }
+        ]
+      },
+      {
+        id: "rigor",
+        title: "4. Technical Rigor & Error Bounds",
+        weight: 20,
+        desc: "Claims strictly bounded by data; rigorous error bars, standard deviations, and uncertainties.",
+        tiers: [
+          { name: "Exemplary", val: 20, label: "20 pts (Full)" },
+          { name: "Proficient", val: 16, label: "16 pts (-4)" },
+          { name: "Developing", val: 12, label: "12 pts (-8)" },
+          { name: "Unsatisfactory", val: 6, label: "6 pts (-14)" }
+        ]
+      },
+      {
+        id: "rvsd_cat",
+        title: "5. Results vs. Discussion Separation",
+        weight: 15,
+        desc: "Results objectively present data; Discussion interprets physics and compares to literature.",
+        tiers: [
+          { name: "Exemplary", val: 15, label: "15 pts (Full)" },
+          { name: "Proficient", val: 12, label: "12 pts (-3)" },
+          { name: "Developing", val: 9, label: "9 pts (-6)" },
+          { name: "Unsatisfactory", val: 4, label: "4 pts (-11)" }
+        ]
+      },
+      {
+        id: "figs",
+        title: "6. Figures, Tables & SI Units",
+        weight: 10,
+        desc: "Vector/300 DPI graphics; self-contained captions; standard SI units on all axes.",
+        tiers: [
+          { name: "Exemplary", val: 10, label: "10 pts (Full)" },
+          { name: "Proficient", val: 8, label: "8 pts (-2)" },
+          { name: "Developing", val: 6, label: "6 pts (-4)" },
+          { name: "Unsatisfactory", val: 3, label: "3 pts (-7)" }
+        ]
+      },
+      {
+        id: "mech",
+        title: "7. Mechanics & Academic Style",
+        weight: 10,
+        desc: "No hyperbole; active voice for choices, passive for procedures; complete citations.",
+        tiers: [
+          { name: "Exemplary", val: 10, label: "10 pts (Full)" },
+          { name: "Proficient", val: 8, label: "8 pts (-2)" },
+          { name: "Developing", val: 6, label: "6 pts (-4)" },
+          { name: "Unsatisfactory", val: 3, label: "3 pts (-7)" }
+        ]
+      }
+    ];
+
+    // Current Rubric Scores State
+    const currentScores = {};
+    rubricData.forEach(item => {
+      currentScores[item.id] = item.weight; // Default to exemplary
+    });
+
+    function renderRubric() {
+      const container = document.getElementById('rubricCategories');
+      container.innerHTML = '';
+
+      rubricData.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4";
+        
+        let tiersHtml = '';
+        item.tiers.forEach((tier, index) => {
+          const isChecked = index === 0 ? 'checked' : '';
+          tiersHtml += `
+            <label class="flex items-center gap-1.5 text-xs text-slate-700 cursor-pointer">
+              <input type="radio" name="rubric_${item.id}" value="${tier.val}" ${isChecked} onchange="updateRubricScore('${item.id}', ${tier.val})" class="text-indigo-600 focus:ring-indigo-500">
+              <span class="font-medium">${tier.name} <span class="text-slate-400 font-mono">(${tier.val})</span></span>
+            </label>
+          `;
+        });
+
+        card.innerHTML = `
+          <div class="max-w-lg">
+            <div class="flex items-center gap-2">
+              <h4 class="font-bold text-slate-900 text-sm">${item.title}</h4>
+              <span class="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-[10px] font-bold">Max ${item.weight} pts</span>
+            </div>
+            <p class="text-xs text-slate-500 mt-1 leading-normal">${item.desc}</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 sm:gap-4 shrink-0 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+            ${tiersHtml}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updateRubricScore(id, val) {
+      currentScores[id] = Number(val);
+      calculateTotalScore();
+    }
+
+    function calculateTotalScore() {
+      let total = 0;
+      for (const key in currentScores) {
+        total += currentScores[key];
+      }
+      
+      const liveScoreEl = document.getElementById('liveScore');
+      const statusEl = document.getElementById('scoreStatus');
+      
+      liveScoreEl.innerHTML = `${total}<span class="text-sm text-slate-400">/100</span>`;
+      
+      if (total >= 90) {
+        statusEl.textContent = "Ready for Submission (Minor Revisions)";
+        statusEl.className = "text-xs font-semibold text-emerald-400";
+      } else if (total >= 75) {
+        statusEl.textContent = "Proficient (Major Revisions Needed)";
+        statusEl.className = "text-xs font-semibold text-amber-400";
+      } else if (total >= 60) {
+        statusEl.textContent = "Developing (Revise & Resubmit)";
+        statusEl.className = "text-xs font-semibold text-orange-400";
+      } else {
+        statusEl.textContent = "Unsatisfactory (Immediate Rejection)";
+        statusEl.className = "text-xs font-semibold text-rose-400";
+      }
+    }
+
+    // Pre-Flight Checklist Logic
+    function updateChecklist() {
+      const container = document.getElementById('checklistContainer');
+      const checkboxes = container.querySelectorAll('input[type="checkbox"]');
+      const total = checkboxes.length;
+      let checked = 0;
+
+      checkboxes.forEach(cb => {
+        if (cb.checked) checked++;
+      });
+
+      const pct = Math.round((checked / total) * 100);
+      document.getElementById('checkProgressBar').style.width = pct + '%';
+      document.getElementById('checkProgressText').textContent = `${checked} of ${total} Completed (${pct}%)`;
+
+      if (pct === 100) {
+        document.getElementById('checkProgressBar').className = "h-full bg-emerald-500 transition-all duration-300";
+        document.getElementById('checkProgressText').className = "text-emerald-600 font-bold font-mono";
+      } else {
+        document.getElementById('checkProgressBar').className = "h-full bg-sky-600 transition-all duration-300";
+        document.getElementById('checkProgressText').className = "text-sky-600 font-bold font-mono";
+      }
+    }
+
+    // Initialize on window load
+    window.onload = function() {
+      renderRubric();
+      calculateTotalScore();
+    };
+  </script>
+</body>
+</html>
