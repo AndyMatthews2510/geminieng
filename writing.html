@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engineering Manuscript Writing & Evaluation Portal</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #0f172a;
+      --primary-light: #eff6ff;
+      --accent: #2563eb;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --success: #15803d;
+      --success-bg: #f0fdf4;
+      --danger: #b91c1c;
+      --danger-bg: #fef2f2;
+      --warning: #b45309;
+      --warning-bg: #fffbeb;
+      --radius: 8px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--slate-50);
+      color: var(--slate-800);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      padding: 3rem 1.5rem 2.5rem;
+      border-bottom: 4px solid var(--accent);
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      color: var(--slate-300);
+      font-size: 1.05rem;
+      max-width: 850px;
+    }
+
+    /* Main Navigation Tabs */
+    nav.main-nav {
+      background: white;
+      border-bottom: 1px solid var(--slate-200);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.5rem;
+      padding: 0 1.5rem;
+      overflow-x: auto;
+    }
+    .nav-btn {
+      padding: 1rem 1.25rem;
+      border: none;
+      background: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--slate-600);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      color: var(--accent);
+    }
+    .nav-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Cards & Containers */
+    .card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+      margin-bottom: 1.75rem;
+    }
+    .card h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.85rem;
+      color: var(--slate-800);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card h3 {
+      font-size: 1.1rem;
+      margin: 1.25rem 0 0.5rem;
+      color: var(--primary);
+    }
+
+    /* Concept & Architecture Callouts */
+    .step-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.35rem;
+      text-transform: uppercase;
+    }
+
+    .flow-diagram {
+      background: var(--slate-100);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin: 1rem 0;
+      font-family: inherit;
+    }
+    .flow-step {
+      background: white;
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.65rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .flow-arrow {
+      text-align: center;
+      color: var(--accent);
+      font-weight: bold;
+      margin-bottom: 0.65rem;
+    }
+
+    /* Tab 2: Exercises & Lab */
+    .exercise-nav {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--slate-200);
+      padding-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .exercise-btn {
+      padding: 0.6rem 1.1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--slate-300);
+      background: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--slate-600);
+      cursor: pointer;
+    }
+    .exercise-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .excerpt-box {
+      background: var(--slate-100);
+      border-left: 4px solid var(--danger);
+      padding: 1.25rem;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-family: Georgia, serif;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+    .excerpt-box h4 {
+      font-family: -apple-system, sans-serif;
+      color: var(--danger);
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    textarea, input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius);
+      padding: 0.75rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+    textarea:focus, input[type="text"]:focus {
+      outline: 2px solid var(--accent);
+      border-color: transparent;
+    }
+
+    .model-solution {
+      background: var(--success-bg);
+      border: 1px solid #bbf7d0;
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+      display: none;
+    }
+    .model-solution.visible {
+      display: block;
+    }
+    .model-solution h4 {
+      color: var(--success);
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* Tab 3: Rubric Calculator */
+    .score-summary-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--primary-light);
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.75rem;
+      position: sticky;
+      top: 4rem;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+    .score-val {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .tier-badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .rubric-criterion {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .rubric-criterion:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .criterion-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+    .criterion-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .criterion-weight {
+      color: var(--slate-600);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.75rem;
+    }
+    .tier-box {
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      padding: 0.85rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s ease-in-out;
+      background: white;
+    }
+    .tier-box:hover {
+      border-color: var(--accent);
+      background: #f8fafc;
+    }
+    .tier-box.selected {
+      border-color: var(--accent);
+      background: var(--primary-light);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    .tier-header {
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--slate-700);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Tab 4: Checklist */
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-radius: var(--radius);
+    }
+    .check-item:hover {
+      background: var(--slate-100);
+    }
+    .check-item input[type="checkbox"] {
+      margin-top: 0.25rem;
+      width: 1.1rem;
+      height: 1.1rem;
+      cursor: pointer;
+    }
+
+    /* Buttons & Tables */
+    .btn {
+      display: inline-block;
+      padding: 0.65rem 1.25rem;
+      border-radius: var(--radius);
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .btn-primary { background: var(--accent); color: white; }
+    .btn-primary:hover { background: #1d4ed8; }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    .data-table th, .data-table td {
+      border: 1px solid var(--slate-200);
+      padding: 0.75rem 1rem;
+      text-align: left;
+    }
+    .data-table th {
+      background: var(--slate-100);
+      font-weight: 700;
+    }
+
+    @media print {
+      nav.main-nav, .exercise-nav, .btn, .score-summary-bar { display: none; }
+      .tab-content { display: block !important; }
+      .card { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-container">
+      <h1>Engineering Manuscript Writing & Evaluation Portal</h1>
+      <p>Guiding undergraduate engineering researchers from classroom lab reporting to scholarly, peer-reviewed journal publications.</p>
+    </div>
+  </header>
+
+  <nav class="main-nav">
+    <div class="nav-container">
+      <button class="nav-btn active" onclick="switchMainTab('tab-architecture')">1. IMRaD Architecture</button>
+      <button class="nav-btn" onclick="switchMainTab('tab-lab')">2. Critique & Rewrite Lab</button>
+      <button class="nav-btn" onclick="switchMainTab('tab-rubric')">3. Journal Rubric Calculator</button>
+      <button class="nav-btn" onclick="switchMainTab('tab-checklist')">4. Pre-Flight Checklist</button>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- TAB 1: IMRAD ARCHITECTURE & CONCEPTS (Pedagogical Foundation First) -->
+    <section id="tab-architecture" class="tab-content active">
+      <div class="card">
+        <h2>Shift the Mental Model: Lab Report vs. Journal Article</h2>
+        <p style="color:var(--slate-600); margin-bottom: 1rem;">
+          Undergraduates default to chronological storytelling (<em>"First we did X, then we measured Y"</em>). Published journal articles are structured as <strong>rhetorical arguments</strong>, not diaries. The primary objective is establishing an original technical contribution to international peers.
+        </p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 20%;">Dimension</th>
+              <th style="width: 40%;">Coursework / Lab Report</th>
+              <th style="width: 40%;">Engineering Journal Article (IEEE, ASME, Elsevier)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Target Audience</strong></td>
+              <td>Course instructor assessing compliance and correct execution.</td>
+              <td>International researchers and practitioners seeking reproducible insights.</td>
+            </tr>
+            <tr>
+              <td><strong>Primary Objective</strong></td>
+              <td>Demonstrate understanding of taught procedures to earn a grade.</td>
+              <td>Prove an original methodological, structural, or analytical contribution.</td>
+            </tr>
+            <tr>
+              <td><strong>Narrative Arc</strong></td>
+              <td>Chronological log of classroom steps taken.</td>
+              <td>Problem-solution argument organized by technical significance.</td>
+            </tr>
+            <tr>
+              <td><strong>Handling Flaws & Errors</strong></td>
+              <td>Often downplayed or blamed on generic "human error."</td>
+              <td>Characterized using error propagation, confidence bounds, and physical mechanisms.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>Dissecting the Anatomy of an Engineering Paper (IMRaD)</h2>
+        
+        <h3>Title & Abstract: The Billboard</h3>
+        <p style="font-size: 0.95rem; color: var(--slate-700); margin-bottom: 0.75rem;">
+          The abstract should strictly follow a <strong>5-sentence arc</strong>:
+        </p>
+        <div class="flow-diagram">
+          <div class="flow-step"><strong>Sentence 1 (Broad Context):</strong> Why does this broad engineering problem matter in industry or research?</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><strong>Sentence 2 (Specific Problem / Gap):</strong> What are the precise limitations of current state-of-the-art solutions?</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><strong>Sentence 3 (Proposed Method):</strong> What system, algorithm, or methodology was developed to overcome this gap?</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><strong>Sentence 4 (Quantitative Results):</strong> What were the specific, measured performance metrics (with units and bounds)?</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><strong>Sentence 5 (Engineering Consequence):</strong> What concrete impact does this outcome offer for practical implementation?</div>
+        </div>
+
+        <h3>Introduction: The Funnel (CARS Model)</h3>
+        <p style="font-size: 0.95rem; color: var(--slate-700); margin-bottom: 0.75rem;">
+          Follow John Swales' <em>Create a Research Space (CARS)</em> model:
+        </p>
+        <ul style="padding-left: 1.5rem; font-size: 0.95rem; color: var(--slate-700); line-height: 1.8;">
+          <li><span class="step-badge">Step 1</span> <strong>Establish the Territory:</strong> Provide engineering context and synthesize relevant, recent peer-reviewed literature.</li>
+          <li><span class="step-badge">Step 2</span> <strong>Establish the Niche:</strong> State the gap explicitly (e.g., <em>"However, existing analytical models fail to account for non-linear damping above 100 Hz..."</em>).</li>
+          <li><span class="step-badge">Step 3</span> <strong>Occupy the Niche:</strong> State your explicit contribution (e.g., <em>"In this paper, we propose and validate..."</em>) and summarize the paper's organization.</li>
+        </ul>
+
+        <h3>Methodology: Focus on Reproducibility</h3>
+        <p style="font-size: 0.95rem; color: var(--slate-700);">
+          If an independent engineer cannot replicate the experimental setup or numerical simulation from your description, the section fails. Explicitly document instrument models, calibration tolerances (&plusmn;), sample geometry standards (e.g., ASTM/ISO), software solver algorithms, and mesh convergence criteria.
+        </p>
+
+        <h3>Results vs. Discussion: Separate Observations from Physics</h3>
+        <p style="font-size: 0.95rem; color: var(--slate-700);">
+          <strong>Results</strong> present objective, factual trends with direct references to figures and tables (e.g., <em>"Figure 4 shows peak torque decreased by 12% above 3,000 RPM"</em>).<br>
+          <strong>Discussion</strong> interprets the physical cause and compares findings to literature (e.g., <em>"This reduction aligns with core loss models reported by Smith et al., likely driven by eddy current saturation in rotor laminations"</em>).
+        </p>
+      </div>
+
+      <div class="card">
+        <h2>Common Technical Writing Traps for Undergraduates</h2>
+        <ul style="padding-left: 1.25rem; font-size: 0.95rem; color: var(--slate-700); line-height: 1.8;">
+          <li><strong>Data Dumping Without Narrative:</strong> Presenting 10 graphs when 2 would suffice. Every figure must answer a specific engineering question raised in the narrative.</li>
+          <li><strong>Passive vs. Active Voice Misuse:</strong> Modern engineering journals encourage direct active voice for author design decisions (<em>"We designed a dual-stage filter..."</em>) and passive voice for standard physical procedures (<em>"Samples were annealed at 400&deg;C for two hours"</em>).</li>
+          <li><strong>Imprecise Claims & Missing Error Bounds:</strong> Vague qualifiers (<em>"runs very fast"</em>, <em>"efficiency is high"</em>) must be replaced with bounded metrics (<em>"latency decreased by 18.4% (&plusmn;1.2%) compared to the baseline"</em>).</li>
+          <li><strong>Neglecting Visual Standards:</strong> Figures must be high-DPI or vector formats, fonts must remain legible when scaled down, and all axes must specify both the physical quantity and standard SI unit in parentheses.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Recommended Scaffolded Writing Progression</h2>
+        <div class="flow-diagram">
+          <div class="flow-step"><strong>Phase 1: Reverse-Engineering &mdash;</strong> Analyze 2 target papers from the intended journal; inspect heading structures, figure styles, and citation density.</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><strong>Phase 2: Figures & Captions First &mdash;</strong> Generate publication-quality plots and write standalone captions that convey test conditions and the main takeaway.</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><strong>Phase 3: Methods & Results Draft &mdash;</strong> Write the core empirical sections where data and parameters are clearest.</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><strong>Phase 4: Introduction & Discussion &mdash;</strong> Situate the work within the literature; interpret anomalies and state physical limitations.</div>
+          <div class="flow-arrow">&darr;</div>
+          <div class="flow-step"><strong>Phase 5: Abstract, Title, & Peer Review &mdash;</strong> Condense into the 5-sentence arc and conduct reciprocal peer reviews using the rubric.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: CRITIQUE & REWRITE LAB (Isolated Exercises) -->
+    <section id="tab-lab" class="tab-content">
+      <div class="card">
+        <h2>Hands-on Critique & Revision Studio</h2>
+        <p style="color: var(--slate-600); margin-bottom: 1.5rem; font-size: 0.95rem;">
+          Select an engineering sub-discipline below. Evaluate the flawed student excerpt, identify the journal review violations, write your professional revision, and compare it with the model solution.
+        </p>
+
+        <!-- Sub Navigation for Exercises ONLY -->
+        <div class="exercise-nav">
+          <button class="exercise-btn active" onclick="switchExercise(0)">Ex 1: Abstract (Robotics)</button>
+          <button class="exercise-btn" onclick="switchExercise(1)">Ex 2: Methods (Thermal)</button>
+          <button class="exercise-btn" onclick="switchExercise(2)">Ex 3: Results (Power Electronics)</button>
+        </div>
+
+        <div id="exercise-workspace">
+          <!-- Populated Dynamically by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: EVALUATION RUBRIC CALCULATOR -->
+    <section id="tab-rubric" class="tab-content">
+      <div class="score-summary-bar">
+        <div>
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--slate-600); text-transform: uppercase;">Estimated Manuscript Score</div>
+          <div class="score-val"><span id="total-score">0</span> / 100</div>
+        </div>
+        <div id="status-badge" class="tier-badge" style="background:#fee2e2; color:var(--danger);">Needs Evaluation</div>
+      </div>
+
+      <div class="card">
+        <h2>Interactive 100-Point Journal Rubric</h2>
+        <p style="color:var(--slate-600); margin-bottom:1.5rem; font-size:0.95rem;">
+          Select the descriptive tier that matches the manuscript for each criterion to calculate the projected peer-review outcome.
+        </p>
+
+        <div id="rubric-criteria-container"></div>
+      </div>
+    </section>
+
+    <!-- TAB 4: PRE-FLIGHT CHECKLIST -->
+    <section id="tab-checklist" class="tab-content">
+      <div class="card">
+        <h2>Pre-Submission Quality Audit</h2>
+        <p style="color:var(--slate-600); margin-bottom:1.25rem; font-size:0.95rem;">
+          Verify every item before submitting a manuscript for peer review.
+        </p>
+        
+        <div id="checklist-items"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // --- 1. Rubric Matrix Data ---
+    const rubricData = [
+      {
+        id: "abstract",
+        title: "1. Abstract & Title",
+        weight: 10,
+        tiers: [
+          { score: 10, name: "Exemplary", desc: "Concise, indexed title. Abstract follows the strict 5-sentence arc with 2+ quantitative metrics and tolerances." },
+          { score: 8, name: "Proficient", desc: "Clear title and complete abstract; relies slightly on qualitative descriptors rather than hard bounds." },
+          { score: 6, name: "Developing", desc: "Generic title; abstract reads like an introduction; missing quantitative findings or engineering significance." },
+          { score: 4, name: "Unsatisfactory", desc: "Missing key components; resembles an unedited lab summary; no clear contribution stated." }
+        ]
+      },
+      {
+        id: "intro",
+        title: "2. Introduction & Motivation (CARS Model)",
+        weight: 15,
+        tiers: [
+          { score: 15, name: "Exemplary", desc: "Synthesizes peer-reviewed literature; isolates a precise technical gap; concludes with explicit contributions." },
+          { score: 12, name: "Proficient", desc: "Sound technical context; gap identified, but the transition to the novel contribution is blurred." },
+          { score: 9, name: "Developing", desc: "Literature review is a disjointed summary list; fails to articulate why current solutions are insufficient." },
+          { score: 5, name: "Unsatisfactory", desc: "Purely descriptive background without citations; reads like a textbook summary." }
+        ]
+      },
+      {
+        id: "methods",
+        title: "3. Methodology & Reproducibility",
+        weight: 20,
+        tiers: [
+          { score: 20, name: "Exemplary", desc: "Setup, equations, instrument models, tolerances, and solver boundary conditions are fully documented." },
+          { score: 16, name: "Proficient", desc: "Procedure and equipment identified; minor operational parameters omitted but easily remediable." },
+          { score: 12, name: "Developing", desc: "High-level overview only; critical calibration states, geometries, or formulations are absent." },
+          { score: 6, name: "Unsatisfactory", desc: "Chronological narrative ('we turned on the machine'); lacks mathematical or instrument specifications." }
+        ]
+      },
+      {
+        id: "rigor",
+        title: "4. Technical Rigor & Error Analysis",
+        weight: 20,
+        tiers: [
+          { score: 20, name: "Exemplary", desc: "Claims bounded by data; rigorous error propagation, confidence intervals, and physical mechanisms analyzed." },
+          { score: 16, name: "Proficient", desc: "Technically sound; error analysis present but treated superficially (e.g., error bars lacking explanation)." },
+          { score: 12, name: "Developing", desc: "Over-extrapolates single test runs; dismisses anomalies as 'noise'; lacks uncertainty bounds." },
+          { score: 6, name: "Unsatisfactory", desc: "Unsubstantiated claims; erroneous physics; zero treatment of experimental or numerical error." }
+        ]
+      },
+      {
+        id: "separation",
+        title: "5. Results vs. Discussion Separation",
+        weight: 15,
+        tiers: [
+          { score: 15, name: "Exemplary", desc: "Results objectively present data trends; Discussion explains physical causes, benchmarks against literature, and addresses limitations." },
+          { score: 12, name: "Proficient", desc: "Logically distinct, but discussion leans on speculative claims without literature grounding." },
+          { score: 9, name: "Developing", desc: "Blurs observations with speculation; ignores anomalous points; misses published benchmarks." },
+          { score: 5, name: "Unsatisfactory", desc: "Raw data dump with no interpretation, or speculative claims unsupported by displayed data." }
+        ]
+      },
+      {
+        id: "figures",
+        title: "6. Figures, Tables & Data Presentation",
+        weight: 10,
+        tiers: [
+          { score: 10, name: "Exemplary", desc: "Vector graphics; standalone captions; axes clearly labeled with symbols and SI units; proper error bars." },
+          { score: 8, name: "Proficient", desc: "Clear plots; minor font-scaling issues or captions that merely state 'Y vs X' without context." },
+          { score: 6, name: "Developing", desc: "Default spreadsheet graphics; missing SI units; poorly scaled axes; low-resolution bitmaps." },
+          { score: 3, name: "Unsatisfactory", desc: "Unreadable or misleading plots; raw screenshots of software UIs; tables missing headings." }
+        ]
+      },
+      {
+        id: "mechanics",
+        title: "7. Mechanics, Style & Standards",
+        weight: 10,
+        tiers: [
+          { score: 10, name: "Exemplary", desc: "Active voice for author decisions, passive for procedures; proper equation formatting; complete citation metadata." },
+          { score: 8, name: "Proficient", desc: "Readable with minor typos; occasional informal phrasing; minor reference style omissions." },
+          { score: 6, name: "Developing", desc: "Frequent colloquialisms ('worked great'); broken equation formatting; incomplete references." },
+          { score: 3, name: "Unsatisfactory", desc: "Pervasive grammatical errors; conversational style; unformatted URLs as references." }
+        ]
+      }
+    ];
+
+    const currentScores = {};
+
+    function initRubric() {
+      const container = document.getElementById("rubric-criteria-container");
+      container.innerHTML = "";
+
+      rubricData.forEach((c) => {
+        currentScores[c.id] = c.tiers[1].score; // default to proficient
+
+        const critDiv = document.createElement("div");
+        critDiv.className = "rubric-criterion";
+        critDiv.innerHTML = `
+          <div class="criterion-head">
+            <span class="criterion-title">${c.title}</span>
+            <span class="criterion-weight">${c.weight} pts</span>
+          </div>
+          <div class="tier-grid">
+            ${c.tiers.map((t, idx) => `
+              <div class="tier-box ${idx === 1 ? 'selected' : ''}" onclick="selectTier('${c.id}',${t.score}, this)">
+                <div class="tier-header">
+                  <span>${t.name}</span>
+                  <span>${t.score} pts</span>
+                </div>
+                <div>${t.desc}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        container.appendChild(critDiv);
+      });
+      calculateTotalScore();
+    }
+
+    function selectTier(critId, score, el) {
+      currentScores[critId] = score;
+      const parent = el.closest(".tier-grid");
+      parent.querySelectorAll(".tier-box").forEach(b => b.classList.remove("selected"));
+      el.classList.add("selected");
+      calculateTotalScore();
+    }
+
+    function calculateTotalScore() {
+      let sum = 0;
+      Object.values(currentScores).forEach(v => sum += v);
+      document.getElementById("total-score").innerText = sum;
+
+      const badge = document.getElementById("status-badge");
+      if (sum >= 90) {
+        badge.innerText = "Exemplary / Minor Revisions (90-100)";
+        badge.style.background = "#dcfce7";
+        badge.style.color = "var(--success)";
+      } else if (sum >= 75) {
+        badge.innerText = "Proficient / Major Revisions (75-89)";
+        badge.style.background = "#dbeafe";
+        badge.style.color = "var(--accent)";
+      } else if (sum >= 60) {
+        badge.innerText = "Developing / Revise & Resubmit (60-74)";
+        badge.style.background = "#fef3c7";
+        badge.style.color = "var(--warning)";
+      } else {
+        badge.innerText = "Unsatisfactory / Reject (<60)";
+        badge.style.background = "#fee2e2";
+        badge.style.color = "var(--danger)";
+      }
+    }
+
+    // --- 2. Isolated Exercises Data ---
+    const exercisesData = [
+      {
+        title: "Exercise 1: Title & Abstract (Robotics & Mechatronics)",
+        original: `<strong>Title:</strong> A New and Better Way to Make Robotic Arms Move Smoothly Using PID Control<br><br>
+<strong>Abstract:</strong> Industrial robotic arms are used in a lot of factories these days, but sometimes they shake too much when moving fast. This creates problems for precision assembly tasks. In this project, we tried using a tuned PID controller on a 3-DOF robotic arm to see if we could make it track trajectories better. We changed the K<sub>p</sub>, K<sub>i</sub>, and K<sub>d</sub> gains until the arm stopped vibrating. The tests showed that our control scheme ran very fast and got rid of almost all the overshoot. It worked way better than the factory defaults, proving that our method is an optimal choice for manufacturing automation.`,
+        flaws: [
+          "Promotional, unindexed title ('New and Better Way').",
+          "Trial-and-error tuning described instead of a systematic, reproducible methodology.",
+          "Absence of quantitative performance metrics (settling time, tracking error in mm, overshoot percentage).",
+          "Overreaching claim ('optimal choice for manufacturing automation')."
+        ],
+        modelSolution: `<strong>Title:</strong> Vibration Suppression and Trajectory Tracking in a 3-DOF Robotic Manipulator Using Gain-Scheduled PID Control<br><br>
+<strong>Abstract:</strong> High-speed trajectory tracking in multi-axis industrial manipulators often induces structural vibrations that degrade positioning accuracy in precision assembly. This paper presents an empirical gain-scheduling PID tuning methodology implemented on an articulated 3-DOF robotic arm. Controller gains were optimized across high-velocity operational envelopes to suppress oscillatory transients. Experimental evaluation over standard pick-and-place trajectories demonstrated a 68% reduction in peak overshoot and decreased root-mean-square tracking error from 4.2 mm to 0.9 mm relative to unoptimized factory PID baselines. Settling time improved by 34.5% without motor current saturation. These results demonstrate that systematic gain scheduling offers a computationally lightweight solution for high-throughput automated assembly lines.`
+      },
+      {
+        title: "Exercise 2: Methodology & Reproducibility (Thermal / Fluids)",
+        original: `<strong>3. Experimental Setup</strong><br>
+To test heat transfer, we built a small channel out of acrylic and put a copper plate on the bottom. We heated the plate using an electric heater connected to a DC power supply. Water was pumped through the channel from a reservoir on the lab bench. We measured the temperature using some thermocouples glued to the copper surface and in the water stream. We ran the pump at different speeds to see what happened to the heat transfer coefficient when the flow went faster. Data was recorded onto an Arduino board until the system got hot enough and reached steady state.`,
+        flaws: [
+          "Missing channel geometry (length, width, hydraulic diameter) and material grades.",
+          "Unspecified thermocouple specifications, placement locations, and calibration uncertainties.",
+          "Missing flow conditions (Reynolds numbers, volumetric flow rates) and heat flux values.",
+          "Vague steady-state criterion ('until the system got hot enough') with no temperature drift threshold over time."
+        ],
+        modelSolution: `<strong>3. Experimental Setup and Boundary Conditions</strong><br>
+Forced convection heat transfer was evaluated inside a rectangular test channel (L = 500 mm, W = 50 mm, H = 10 mm) fabricated from 10 mm-thick transparent cast acrylic (k = 0.19 W/(m·K)). The channel floor featured an oxygen-free high-conductivity (OFHC) copper baseplate (100 × 50 × 6 mm) heated from below by an etched-foil electrical resistance heater (Omega Engineering, 200 W capacity). Input power was regulated via a programmable DC power supply (BK Precision 9115) to maintain a constant heat flux of q'' = 15.0 ± 0.2 kW/m².<br><br>
+Deionized water was circulated using a variable-speed gear pump across Reynolds numbers ranging from Re = 1,200 to 8,500. Surface temperatures were acquired using six calibrated Type-T thermocouples (gauge 36 AWG, uncertainty ±0.2°C) embedded flush within the copper plate at 15 mm intervals along the flow direction. Inlet and outlet fluid temperatures were measured using inline RTD probes. Steady-state conditions were logged via a 16-bit DAQ module (NI-9214) when temperature fluctuations remained within ±0.1°C over a 5-minute sampling window.`
+      },
+      {
+        title: "Exercise 3: Results & Data Reporting (Electrical / Power Electronics)",
+        original: `<strong>4. Results and Discussion</strong><br>
+Figure 5 shows the efficiency graph of the buck converter circuit. It is obvious that our design is extremely efficient. At low currents, the efficiency drops because of switching losses, which makes total sense based on circuit theory. The peak efficiency was measured around 94%, which beats the baseline converter made by Texas Instruments. There is a weird dip at 2.5 A, but that was probably just noise on the oscilloscope or the probe wires being loose during that trial. Overall, the circuit demonstrated phenomenal performance, proving that gallium nitride transistors should always be used instead of standard silicon MOSFETs.`,
+        flaws: [
+          "Conversational hyperbole ('extremely efficient', 'phenomenal performance').",
+          "Subjective evaluation conflated with raw data ('makes total sense').",
+          "Dismissal of anomalous data as 'loose wires' without experimental verification or replicate trials.",
+          "Unsupported universal generalization ('GaN should always be used')."
+        ],
+        modelSolution: `<strong>4. Results</strong><br>
+The conversion efficiency of the synchronous buck converter as a function of load current (I<sub>out</sub> = 0.5 A to 5.0 A) at a constant output of 12 V is shown in Fig. 5. Peak efficiency reached 94.2 ± 0.4% at an intermediate load of I<sub>out</sub> = 2.0 A, representing a 2.8% improvement over the silicon reference benchmark (TI TPS54560). As load current decreased below 1.0 A, efficiency dropped to 86.1% due to gate-charge and core switching losses dominating conduction losses.<br><br>
+A localized decrease in efficiency (91.8%) was recorded at I<sub>out</sub> = 2.5 A; subsequent replicate trials (n = 5) confirmed this deviation was reproducible within ±0.3%, corresponding to the onset of discontinuous conduction mode (DCM) boundary oscillations. Across all operational loads above 1.5 A, the GaN-based architecture maintained an efficiency greater than 91.5%.`
+      }
+    ];
+
+    let activeExIdx = 0;
+
+    function switchExercise(idx) {
+      activeExIdx = idx;
+      document.querySelectorAll(".exercise-btn").forEach((btn, i) => {
+        btn.classList.toggle("active", i === idx);
+      });
+      renderExercise();
+    }
+
+    function renderExercise() {
+      const ex = exercisesData[activeExIdx];
+      const container = document.getElementById("exercise-workspace");
+      container.innerHTML = `
+        <h3 style="margin-bottom: 0.75rem; color: var(--slate-800);">${ex.title}</h3>
+        
+        <div class="excerpt-box">
+          <h4>Flawed Student Draft Excerpt</h4>
+          ${ex.original}
+        </div>
+
+        <div class="form-group">
+          <label>1. Critical Diagnostic: What specific flaws violate journal standards?</label>
+          <textarea rows="3" placeholder="Identify at least 3 flaws (e.g., missing metrics, subjective phrasing, lack of uncertainty bounds)..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>2. Publication-Grade Rewrite:</label>
+          <textarea rows="6" placeholder="Rewrite the excerpt applying academic tone, explicit parameters, and standard engineering terminology..."></textarea>
+        </div>
+
+        <button class="btn btn-primary" onclick="toggleSolution()">Toggle Model Journal Solution</button>
+
+        <div id="solution-box" class="model-solution">
+          <h4>Target Flaws Identified:</h4>
+          <ul style="padding-left: 1.25rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--slate-700);">
+            ${ex.flaws.map(f => `<li>${f}</li>`).join('')}
+          </ul>
+          <h4>Exemplary Model Solution:</h4>
+          <div style="font-size: 0.9rem; color: var(--slate-800); line-height: 1.7;">
+            ${ex.modelSolution}
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleSolution() {
+      const box = document.getElementById("solution-box");
+      box.classList.toggle("visible");
+    }
+
+    // --- 3. Checklist Data ---
+    const checklistItems = [
+      "Title is specific, under 15 words, and avoids filler ('A Study of...').",
+      "Abstract contains at least two quantitative metrics with explicit tolerances.",
+      "Introduction cites recent peer-reviewed journal papers (not informal websites).",
+      "Explicit knowledge gap statement included in the Introduction (CARS step 2).",
+      "Governing equations have every variable and symbol explicitly defined in the text.",
+      "Experimental setup includes instrument models, tolerances, and calibration states.",
+      "Boundary conditions, mesh independence, or sampling frequencies are documented.",
+      "Every figure has a self-contained caption understandable without reading the body text.",
+      "All axis labels display physical quantities followed by standard SI units in parentheses.",
+      "Error bars or statistical sample sizes (n) are present on all experimental data plots.",
+      "Results (factual trends) are structurally separated from Discussion (physical interpretations).",
+      "Discussion explicitly confronts study limitations and assumptions."
+    ];
+
+    function initChecklist() {
+      const container = document.getElementById("checklist-items");
+      container.innerHTML = checklistItems.map((item, i) => `
+        <div class="check-item">
+          <input type="checkbox" id="chk-${i}">
+          <label for="chk-${i}" style="cursor:pointer; font-size: 0.95rem;">${item}</label>
+        </div>
+      `).join('');
+    }
+
+    // --- Tab Switching ---
+    function switchMainTab(tabId) {
+      document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+      
+      document.getElementById(tabId).classList.add("active");
+      
+      const tabOrder = ["tab-architecture", "tab-lab", "tab-rubric", "tab-checklist"];
+      const idx = tabOrder.indexOf(tabId);
+      if (idx !== -1) {
+        document.querySelectorAll(".nav-btn")[idx].classList.add("active");
+      }
+    }
+
+    // Initialization on load
+    window.addEventListener("DOMContentLoaded", () => {
+      initRubric();
+      renderExercise();
+      initChecklist();
+    });
+  </script>
+</body>
+</html>

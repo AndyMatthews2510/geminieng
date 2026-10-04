@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engineering Presentation Studio | Professional Communication Portal</title>
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #0f172a;
+      --primary-light: #eff6ff;
+      --accent: #2563eb;
+      --slate-50: #f8fafc;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-600: #475569;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --slate-900: #0f172a;
+      --success: #15803d;
+      --success-bg: #f0fdf4;
+      --danger: #b91c1c;
+      --danger-bg: #fef2f2;
+      --warning: #b45309;
+      --warning-bg: #fffbeb;
+      --radius: 8px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--slate-50);
+      color: var(--slate-800);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: white;
+      padding: 3rem 1.5rem 2.5rem;
+      border-bottom: 4px solid var(--accent);
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header h1 {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      color: var(--slate-300);
+      font-size: 1.05rem;
+      max-width: 850px;
+    }
+
+    /* Main Navigation Bar */
+    nav.main-nav {
+      background: white;
+      border-bottom: 1px solid var(--slate-200);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.5rem;
+      padding: 0 1.5rem;
+      overflow-x: auto;
+    }
+    .nav-btn {
+      padding: 1rem 1.25rem;
+      border: none;
+      background: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--slate-600);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      color: var(--accent);
+    }
+    .nav-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Card Containers & Typography */
+    .card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+      margin-bottom: 1.75rem;
+    }
+    .card h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.85rem;
+      color: var(--slate-800);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .card h3 {
+      font-size: 1.1rem;
+      margin: 1.25rem 0 0.5rem;
+      color: var(--primary);
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .badge-primary { background: var(--primary-light); color: var(--accent); border: 1px solid #bfdbfe; }
+    .badge-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid #fecaca; }
+    .badge-success { background: var(--success-bg); color: var(--success); border: 1px solid #bbf7d0; }
+    .badge-warning { background: var(--warning-bg); color: var(--warning); border: 1px solid #fde68a; }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    .data-table th, .data-table td {
+      border: 1px solid var(--slate-200);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    .data-table th {
+      background: var(--slate-100);
+      font-weight: 700;
+      color: var(--slate-800);
+    }
+
+    /* Timeline & Pacing Layouts */
+    .timeline-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .timeline-node {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-top: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1rem;
+    }
+    .timeline-time {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--slate-800);
+      margin-bottom: 0.35rem;
+    }
+    .timeline-desc {
+      font-size: 0.85rem;
+      color: var(--slate-600);
+      line-height: 1.45;
+    }
+
+    /* Sub-nav Buttons inside Tab 1 and Tab 2 */
+    .sub-nav {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--slate-200);
+      padding-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .sub-btn {
+      padding: 0.6rem 1.1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--slate-300);
+      background: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .sub-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .sub-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+    /* Redesign Studio Layout */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 900px) {
+      .comparison-grid { grid-template-columns: 1fr; }
+    }
+    .slide-mockup {
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius);
+      background: white;
+      display: flex;
+      flex-direction: column;
+      height: 380px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .slide-mockup-header {
+      padding: 0.65rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .slide-mockup-bad {
+      background: #fffafa;
+      border-color: #fca5a5;
+    }
+    .slide-mockup-bad .slide-mockup-header {
+      background: var(--danger-bg);
+      color: var(--danger);
+      border-bottom-color: #fecaca;
+    }
+    .slide-mockup-good {
+      background: #fafcff;
+      border-color: #93c5fd;
+    }
+    .slide-mockup-good .slide-mockup-header {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-bottom-color: #bfdbfe;
+    }
+    .slide-canvas {
+      padding: 1.25rem;
+      flex-grow: 1;
+      overflow-y: auto;
+      font-size: 0.85rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .slide-title-bar {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 0.85rem;
+      border-bottom: 2px solid var(--slate-200);
+      padding-bottom: 0.35rem;
+    }
+
+    /* Architectural Elements inside Good Slides */
+    .flow-block-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+    .flow-block {
+      background: white;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 0.6rem;
+      text-align: center;
+      flex: 1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .flow-block-title { font-weight: 700; font-size: 0.8rem; color: var(--primary); }
+    .flow-block-desc { font-size: 0.7rem; color: var(--slate-600); margin-top: 0.15rem; }
+    .callout-box {
+      background: white;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+      padding: 0.5rem 0.75rem;
+      margin-top: 0.5rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      font-size: 0.8rem;
+    }
+
+    .analysis-panel {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    /* Rubric Matrix Elements */
+    .score-summary-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--primary-light);
+      border: 1px solid #bfdbfe;
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.75rem;
+      position: sticky;
+      top: 4rem;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+    .score-val {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .tier-badge {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .rubric-criterion {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--slate-200);
+    }
+    .rubric-criterion:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .criterion-head {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+    .criterion-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .criterion-weight {
+      color: var(--slate-600);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.75rem;
+    }
+    .tier-box {
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      padding: 0.85rem;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s ease-in-out;
+      background: white;
+    }
+    .tier-box:hover {
+      border-color: var(--accent);
+      background: #f8fafc;
+    }
+    .tier-box.selected {
+      border-color: var(--accent);
+      background: var(--primary-light);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+    .tier-header {
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--slate-700);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Checklist & Q&A Tactical Items */
+    .tactical-card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-left: 4px solid var(--primary);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.15rem;
+      margin-bottom: 1rem;
+    }
+    .tactical-card h4 {
+      font-size: 0.95rem;
+      color: var(--slate-900);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tactical-card p {
+      font-size: 0.85rem;
+      color: var(--slate-600);
+      margin-bottom: 0.5rem;
+    }
+    .phrasing-box {
+      background: white;
+      border: 1px solid var(--slate-300);
+      border-radius: 4px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--slate-800);
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+      padding: 0.75rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--slate-200);
+      background: white;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+    .check-item:hover {
+      background: var(--slate-50);
+      border-color: var(--slate-300);
+    }
+    .check-item.completed {
+      background: var(--success-bg);
+      border-color: #bbf7d0;
+    }
+    .check-item input[type="checkbox"] {
+      margin-top: 0.25rem;
+      width: 1.15rem;
+      height: 1.15rem;
+      cursor: pointer;
+    }
+    .check-label {
+      font-size: 0.9rem;
+      color: var(--slate-800);
+      cursor: pointer;
+    }
+    .check-item.completed .check-label {
+      color: var(--success);
+      font-weight: 500;
+    }
+
+    .progress-bar-container {
+      background: var(--slate-200);
+      border-radius: 9999px;
+      height: 8px;
+      width: 100%;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0.25s ease;
+    }
+
+    @media print {
+      nav.main-nav, .sub-nav, .score-summary-bar { display: none; }
+      .tab-content { display: block !important; }
+      .card { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1>Engineering Presentation Studio</h1>
+      <p>Mastering technical communication across three core venues: lab progress reviews, peer-reviewed academic conferences, and executive engineering pitches.</p>
+    </div>
+  </header>
+
+  <nav class="main-nav">
+    <div class="nav-container">
+      <button class="nav-btn active" onclick="switchMainTab('tab-blueprints')">1. Presentation Blueprints</button>
+      <button class="nav-btn" onclick="switchMainTab('tab-studio')">2. Slide Redesign Studio</button>
+      <button class="nav-btn" onclick="switchMainTab('tab-rubric')">3. Rubric Calculator</button>
+      <button class="nav-btn" onclick="switchMainTab('tab-defense')">4. Q&amp;A Defense &amp; Pre-Flight</button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ========================================== -->
+    <!-- TAB 1: PRESENTATION BLUEPRINTS & ARCHETYPES -->
+    <!-- ========================================== -->
+    <section id="tab-blueprints" class="tab-content active">
+      
+      <div class="card">
+        <h2>Audience Calibration: The Three Engineering Speaking Arenas</h2>
+        <p style="color:var(--slate-600); margin-bottom: 1.25rem;">
+          Engineering students often make the mistake of creating a single slide deck and delivering it identically across all contexts. In practice, professional communication is defined by <strong>audience-driven adaptation</strong>.
+        </p>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">Dimension</th>
+              <th style="width: 26%;">Scenario A: Progress &amp; Feedback</th>
+              <th style="width: 26%;">Scenario B: Academic Conference</th>
+              <th style="width: 26%;">Scenario C: Management / Pitch</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Primary Audience</strong></td>
+              <td>Faculty advisor, lab mentors, peer investigators.</td>
+              <td>International domain specialists, session chairs, peer researchers.</td>
+              <td>Engineering directors, plant managers, capital allocators.</td>
+            </tr>
+            <tr>
+              <td><strong>Audience Mindset</strong></td>
+              <td><em>"What is blocking them? How do we troubleshoot or redirect?"</em></td>
+              <td><em>"What is original, technically valid, and sound?"</em></td>
+              <td><em>"What is the operational risk, cost, and bottom-line ROI?"</em></td>
+            </tr>
+            <tr>
+              <td><strong>Primary Goal</strong></td>
+              <td>Solicit critique, unblock dead-ends, validate direction.</td>
+              <td>Disseminate archival findings; establish scientific priority.</td>
+              <td>Secure budget, project greenlight, or hardware resources.</td>
+            </tr>
+            <tr>
+              <td><strong>Handling Failures</strong></td>
+              <td><strong>Center-stage:</strong> Highlight anomalies and failed tests to get help.</td>
+              <td>Framed candidly as analytical scope boundaries and limitations.</td>
+              <td>Framed as identified risks with active mitigation contingencies.</td>
+            </tr>
+            <tr>
+              <td><strong>Typical Duration</strong></td>
+              <td>10&ndash;15 min talk + 15 min open working session.</td>
+              <td>Strict 10&ndash;12 min talk + 3 min rapid Q&amp;A.</td>
+              <td>5&ndash;7 min tight briefing + high-level strategic discussion.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Blueprint Sub-Selector -->
+      <div class="card">
+        <h2>Scenario Blueprints &amp; Timing Architectures</h2>
+        <p style="color:var(--slate-600); margin-bottom: 1.25rem;">
+          Select a speaking scenario below to inspect its narrative timeline, target slide count, and strategic traps:
+        </p>
+
+        <div class="sub-nav">
+          <button class="sub-btn active" onclick="switchBlueprint(0)">Scenario A: Progress &amp; Feedback</button>
+          <button class="sub-btn" onclick="switchBlueprint(1)">Scenario B: Academic Conference (12-Min)</button>
+          <button class="sub-btn" onclick="switchBlueprint(2)">Scenario C: Management Pitch (BLUF)</button>
+        </div>
+
+        <div id="blueprint-details-container">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+
+    </section>
+    <!-- ========================================== -->
+    <!-- TAB 2: SLIDE REDESIGN STUDIO (BEFORE & AFTER) -->
+    <!-- ========================================== -->
+    <section id="tab-studio" class="tab-content">
+      <div class="card">
+        <h2>Slide Redesign Studio: Cognitive Load Transformation</h2>
+        <p style="color:var(--slate-600); margin-bottom: 1.25rem;">
+          Human working memory cannot simultaneously read dense paragraphs and listen to an engineer speak. Contrast authentic undergraduate slide failures against professionally structured technical visuals.
+        </p>
+
+        <div class="sub-nav">
+          <button class="sub-btn active" onclick="switchRedesign(0)">Ex 1: Wall of Text &rarr; Visual Architecture</button>
+          <button class="sub-btn" onclick="switchRedesign(1)">Ex 2: Spreadsheet Dump &rarr; Annotated Trend Chart</button>
+          <button class="sub-btn" onclick="switchRedesign(2)">Ex 3: Equation Graveyard &rarr; Conceptual Mechanism</button>
+        </div>
+
+        <div id="redesign-workspace">
+          <!-- Populated dynamically by JS -->
+        </div>
+      </div>
+    </section>
+    <!-- ========================================== -->
+    <!-- TAB 3: PRESENTATION RUBRIC CALCULATOR -->
+    <!-- ========================================== -->
+    <section id="tab-rubric" class="tab-content">
+      
+      <div class="score-summary-bar">
+        <div>
+          <div style="font-size: 0.85rem; font-weight: 700; color: var(--slate-600); text-transform: uppercase;">Oral Presentation Score</div>
+          <div class="score-val"><span id="presentation-total-score">0</span> / 100</div>
+        </div>
+        <div id="presentation-status-badge" class="tier-badge" style="background:#fee2e2; color:var(--danger);">Needs Evaluation</div>
+      </div>
+
+      <div class="card">
+        <h2>Interactive 100-Point Engineering Presentation Rubric</h2>
+        <p style="color:var(--slate-600); margin-bottom: 1.5rem; font-size: 0.95rem;">
+          Calibrated across technical rigor, visual cognitive load, narrative pacing, and defense composure. Select the corresponding performance tier for each criterion:
+        </p>
+
+        <div id="presentation-rubric-container"></div>
+      </div>
+
+    </section>
+    <!-- ========================================== -->
+    <!-- TAB 4: Q&A DEFENSE & PRE-FLIGHT CHECKLIST -->
+    <!-- ========================================== -->
+    <section id="tab-defense" class="tab-content">
+      
+      <div class="card">
+        <h2>Tactical Frameworks for the Q&amp;A Session</h2>
+        <p style="color:var(--slate-600); margin-bottom: 1.25rem;">
+          The question-and-answer period separates confident engineers from memorizers. It is an opportunity to showcase depth, analytical boundaries, and professional composure.
+        </p>
+
+        <div class="tactical-card">
+          <h4><span class="badge badge-primary">Framework 1</span> The Aggressive or Hostile Inquirer</h4>
+          <p>Reviewers or managers may challenge your baseline assumptions or simulation validity bluntly. Never mirror defensive emotion; validate the technical perspective and refocus on measured physical parameters.</p>
+          <div class="phrasing-box">
+            "That is an essential boundary check. We isolated that condition in our secondary parametric sweeps, and while higher turbulence does affect shear stress, our Reynolds numbers remained within the laminar core regime (&plusmn;3.5%). I would welcome the chance to walk you through our validation dataset during the break."
+          </div>
+        </div>
+
+        <div class="tactical-card">
+          <h4><span class="badge badge-warning">Framework 2</span> The Unknown Answer / Out-of-Scope Query</h4>
+          <p>Never fabricate data or guess a technical parameter on stage. Differentiate between what is verified by your apparatus and what lies beyond current project scope.</p>
+          <div class="phrasing-box">
+            "We have not characterized the thermal cycling behavior past 500 hours, as our current scope focused strictly on ambient startup transients. However, based on our material's grain boundary morphology, we anticipate micro-void nucleation at extended runtimes, which constitutes our immediate Phase 2 milestone."
+          </div>
+        </div>
+
+        <div class="tactical-card">
+          <h4><span class="badge badge-success">Framework 3</span> Acknowledging a Genuine Limitation or Defect</h4>
+          <p>When an expert spots a genuine oversight or uncalibrated sensor drift, acknowledge it transparently. Scholarly rigor is demonstrated by recognizing error bounds, not concealing them.</p>
+          <div class="phrasing-box">
+            "You are completely correct that uncompensated sensor lead resistance introduces an uncertainty offset at currents above 4.5 A. That is a known limitation of our current DAQ harness, and we have bounded that uncertainty margin at &plusmn;4.1% in our discussion."
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Podium Pre-Flight Quality Audit</h2>
+        <p style="color:var(--slate-600); margin-bottom: 0.5rem; font-size: 0.95rem;">
+          Execute this 12-item quality check prior to stepping up to the podium, entering the seminar room, or presenting in the boardroom:
+        </p>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 1rem; margin-bottom: 0.5rem;">
+          <span style="font-size:0.85rem; font-weight:700; color:var(--slate-700);" id="preflight-status-text">0 of 12 Verified (0%)</span>
+          <span style="font-size:0.85rem; font-weight:700; color:var(--accent);" id="preflight-badge">Check Incomplete</span>
+        </div>
+        <div class="progress-bar-container">
+          <div id="preflight-progress" class="progress-bar-fill"></div>
+        </div>
+
+        <div id="preflight-checklist-items" style="margin-top: 1.5rem;">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+  <script>
+    // --- 1. Scenario Blueprints Data ---
+    const blueprintsData = [
+      {
+        title: "Scenario A: Progress & Feedback Review (The Formative Lab Check)",
+        subtitle: "Audience: Principal Investigator, Faculty Advisors, Lab Mentors | Focus: Diagnosing Obstacles & Verification",
+        slidesTarget: "6–9 Slides Total (Approx. 1.5 minutes per slide)",
+        timeline: [
+          { time: "0:00 – 1:30", title: "1. Milestone Anchor", desc: "Briefly re-state the semester charter, active milestone phase, and overall target deliverable." },
+          { time: "1:30 – 4:30", title: "2. Completed Deliverables", desc: "Show empirical evidence of completed tasks since the prior review with numerical verification." },
+          { time: "4:30 – 9:00", title: "3. The Deep-Dive Blocker", desc: "Center-stage the anomaly, hardware failure, or solver divergence. Detail hypotheses already eliminated." },
+          { time: "9:00 – 11:00", title: "4. Targeted Advisory Ask", desc: "Pose 2–3 precise technical decision forks to your advisors to unblock immediate progress." }
+        ],
+        goldenRule: "Never hide your roadblocks. If a progress review ends with your PI saying 'everything looks fine' while your hardware is smoking, you have failed the meeting.",
+        traps: [
+          "Delivering a chronological diary ('On Tuesday we ordered parts, on Thursday we went to the shop').",
+          "Spending 8 minutes rehashing background theory that the advisor assigned to you.",
+          "Presenting a roadblock without showing the 2–3 hypotheses you already investigated.",
+          "Failing to articulate a concrete question for the committee to advise on."
+        ]
+      },
+      {
+        title: "Scenario B: Academic Conference Presentation (The 12-Minute Standard)",
+        subtitle: "Audience: International Domain Specialists, Session Chairs, Skeptical Reviewers | Focus: Priority & Validity",
+        slidesTarget: "10–12 Slides Total (Strict 1 minute per slide discipline)",
+        timeline: [
+          { time: "0:00 – 1:30", title: "1. Stakes & Hook", desc: "Establish the physical/industrial imperative. Why is this specific engineering challenge urgent today?" },
+          { time: "1:30 – 3:00", title: "2. Prior Art Deficit", desc: "State the niche: exactly where existing literature or commercial algorithms fail (CARS Move 2)." },
+          { time: "3:00 – 6:00", title: "3. Architecture / Method", desc: "Present system schematic, physical governing principles, and experimental boundary conditions." },
+          { time: "6:00 – 9:30", title: "4. Key Validation Data", desc: "Highlight 2–3 high-contrast trend plots benchmarking performance against current state-of-the-art." },
+          { time: "9:30 – 11:00", title: "5. Significance & Bounds", desc: "Summarize original contributions, frankly acknowledge operational limits, and state next steps." }
+        ],
+        goldenRule: "Your presentation is an advertisement for your paper, not a reading of it. Focus on intuition, architectural clarity, and the critical validation curves.",
+        traps: [
+          "Copy-pasting dense journal paragraphs directly onto slides as bullet point lists.",
+          "Projecting multi-line algebraic derivations that no audience can parse in 45 seconds.",
+          "Displaying charts with unreadable, microscopic 10 pt axis labels and missing units.",
+          "Running out of time on slide 6 because of rambling introductory remarks."
+        ]
+      },
+      {
+        title: "Scenario C: Executive / Management Pitch (The BLUF Inverted Pyramid)",
+        subtitle: "Audience: Engineering Directors, Plant Operations Managers, Finance Directors | Focus: ROI & Risk Mitigation",
+        slidesTarget: "5–7 Slides Total (High signal-to-noise ratio)",
+        timeline: [
+          { time: "0:00 – 1:00", title: "1. The BLUF (Bottom Line)", desc: "Lead with the conclusion: the proposed system, expected efficiency gain, and financial upside." },
+          { time: "1:00 – 2:30", title: "2. Operational Friction", desc: "Quantify the baseline pain point: scrap rate, equipment downtime, or labor waste in dollars/hours." },
+          { time: "2:30 – 4:00", title: "3. Conceptual Mechanism", desc: "Explain how it functions using intuitive functional schematics—omit circuit equations and mesh setups." },
+          { time: "4:00 – 5:30", title: "4. Budget & Roadmap", desc: "Detail capital expenditures, installation timeline, maintenance requirements, and break-even window." },
+          { time: "5:30 – 7:00", title: "5. Risk Mitigation & Ask", desc: "State key deployment risks, active safety contingencies, and the exact authorization requested today." }
+        ],
+        goldenRule: "Executives care about throughput, safety, compliance, and ROI. Speak in terms of operational impact, not algorithmic minutiae.",
+        traps: [
+          "Burying the financial outcome and recommendation on the final slide.",
+          "Diving into technical jargon, simulation solvers, or component pinouts.",
+          "Ignoring implementation downtime ('The line must be stopped for 4 weeks').",
+          "Failing to ask for a specific operational or budget commitment."
+        ]
+      }
+    ];
+    // --- 2. Redesign Studio Data ---
+    const redesignsData = [
+      {
+        title: "Example 1: The 'Wall of Text' vs. Visual System Architecture",
+        context: "A mechatronics team presenting their autonomous sorting manipulator architecture at a conference.",
+        badSlide: {
+          title: "System Architecture & Communications Overview",
+          content: `
+            <ul style="padding-left:1.25rem; font-size:0.8rem; color:#475569; line-height:1.5;">
+              <li style="margin-bottom:0.4rem;">The robotic arm is powered by an STM32F401 microcontroller which runs our real-time motion control loop at 1 kHz frequency.</li>
+              <li style="margin-bottom:0.4rem;">Computer vision processing is executed on a companion Raspberry Pi 4 running OpenCV with Python scripts to compute centroid positions of incoming parts.</li>
+              <li style="margin-bottom:0.4rem;">The Raspberry Pi sends trajectory coordinate packets to the STM32 via an isolated UART serial link running at 115200 baud rate.</li>
+              <li style="margin-bottom:0.4rem;">A pneumatic gripper actuator is driven via a 24V solenoid valve triggered by an optocoupled relay connected to GPIO pin PB12 on the microcontroller.</li>
+              <li style="margin-bottom:0.4rem;">Emergency stop switches cut the main 24V industrial supply line directly via dual-channel safety relays per ISO 13849 guidelines.</li>
+            </ul>
+          `
+        },
+        goodSlide: {
+          title: "Dual-Tier Control Architecture (1 kHz Loop)",
+          content: `
+            <div class="flow-block-group">
+              <div class="flow-block">
+                <div class="flow-block-title">Vision Subsystem</div>
+                <div class="flow-block-desc">Raspberry Pi 4 | OpenCV<br>Centroid Detection (30 fps)</div>
+              </div>
+              <div style="font-weight:bold; color:var(--accent);">&rarr;</div>
+              <div class="flow-block" style="border-color:var(--primary); background:#eff6ff;">
+                <div class="flow-block-title" style="color:var(--primary);">Real-Time Controller</div>
+                <div class="flow-block-desc">STM32F401 | 1 kHz Loop<br>Inverse Kinematics &amp; PWM</div>
+              </div>
+              <div style="font-weight:bold; color:var(--accent);">&rarr;</div>
+              <div class="flow-block">
+                <div class="flow-block-title">End Effector</div>
+                <div class="flow-block-desc">Pneumatic Actuator<br>ISO Safety Interlock</div>
+              </div>
+            </div>
+            <div class="callout-box">
+              <strong style="color:var(--primary);">Deterministic Link:</strong> Isolated UART (115.2 kbps) ensures trajectory latency remains below 1.2 ms without jitter.
+            </div>
+          `
+        },
+        analysis: {
+          whyBadFailed: "The audience has to read 5 dense bullet points while ignoring the speaker's voice. The hierarchical relationship between the microprocessors, safety circuits, and physical actuators is lost in sentence structure.",
+          whyGoodWorked: "Converts text into an intuitive functional signal chain. The audience immediately grasps the hardware split (Vision &rarr; Motion &rarr; Actuation), while the callout card isolates the critical engineering specification."
+        }
+      },
+      {
+        title: "Example 2: The Raw Spreadsheet Dump vs. High-Impact Annotated Trend Plot",
+        context: "A materials research group presenting heat-treatment hardness results to an engineering committee.",
+        badSlide: {
+          title: "Hardness Test Results Across All 15 Trials",
+          content: `
+            <table style="width:100%; border-collapse:collapse; font-size:0.65rem; color:#334155; text-align:center;">
+              <tr style="background:#f1f5f9; font-weight:bold;">
+                <th style="border:1px solid #cbd5e1; padding:2px;">Trial</th>
+                <th style="border:1px solid #cbd5e1; padding:2px;">Temp (&deg;C)</th>
+                <th style="border:1px solid #cbd5e1; padding:2px;">Time (min)</th>
+                <th style="border:1px solid #cbd5e1; padding:2px;">HRC 1</th>
+                <th style="border:1px solid #cbd5e1; padding:2px;">HRC 2</th>
+                <th style="border:1px solid #cbd5e1; padding:2px;">Avg</th>
+              </tr>
+              <tr><td style="border:1px solid #cbd5e1;">1</td><td>160</td><td>30</td><td>42.1</td><td>42.5</td><td>42.3</td></tr>
+              <tr><td style="border:1px solid #cbd5e1;">2</td><td>160</td><td>60</td><td>44.8</td><td>45.2</td><td>45.0</td></tr>
+              <tr><td style="border:1px solid #cbd5e1;">3</td><td>180</td><td>30</td><td>48.2</td><td>48.6</td><td>48.4</td></tr>
+              <tr><td style="border:1px solid #cbd5e1;">4</td><td>180</td><td>60</td><td>54.1</td><td>53.9</td><td>54.0</td></tr>
+              <tr><td style="border:1px solid #cbd5e1;">5</td><td>200</td><td>30</td><td>51.2</td><td>50.8</td><td>51.0</td></tr>
+              <tr><td style="border:1px solid #cbd5e1;">6</td><td>200</td><td>60</td><td>47.5</td><td>47.1</td><td>47.3</td></tr>
+            </table>
+            <div style="font-size:0.7rem; color:#64748b; margin-top:0.5rem; text-align:center;">*Trials 7 through 15 omitted due to space limitations.</div>
+          `
+        },
+        goodSlide: {
+          title: "Peak Hardness Reached at 180&deg;C Aging (54.0 HRC)",
+          content: `
+            <div style="background:#fff; border:1px solid #cbd5e1; border-radius:6px; padding:0.75rem; font-family:monospace; font-size:0.75rem;">
+              <div style="color:#64748b; margin-bottom:0.25rem;">Hardness [HRC] vs Aging Temp [&deg;C] (t = 60 min, n = 5)</div>
+              <pre style="margin:0; line-height:1.2; color:#1e293b;">
+60 |                     <span style="color:#2563eb; font-weight:bold;">★ PEAK: 54.0 ± 0.4 HRC</span>
+50 |           ╭─────────*─────────╮  (Over-aging softening)
+40 |    ───────╯                   ╰─────────
+30 |__________________________________________
+        140°C        180°C        220°C
+              </pre>
+            </div>
+            <div class="callout-box" style="border-left-color:var(--success); background:#f0fdf4;">
+              <strong style="color:var(--success);">Takeaway:</strong> Aging beyond 180&deg;C causes coherent precipitate coarsening (&theta;&prime; phase), reducing hardness by 12.4%.
+            </div>
+          `
+        },
+        analysis: {
+          whyBadFailed: "A spreadsheet requires viewers to scan rows and columns to mentally synthesize trend curves. Under pressure, audience members lose the plot entirely.",
+          whyGoodWorked: "The conclusion is explicitly stated in the slide headline. The annotated visual instantly communicates the peak and the physical mechanism (over-aging softening) with sample size and error bounds."
+        }
+      },
+      {
+        title: "Example 3: The Equation Graveyard vs. Conceptual Mechanism with Parameter Callouts",
+        context: "An aerospace engineering student presenting aerodynamic boundary layer damping to industry managers.",
+        badSlide: {
+          title: "Governing Fluid Navier-Stokes & Continuity Formulations",
+          content: `
+            <div style="font-family:serif; font-size:0.85rem; color:#1e293b; line-height:1.8;">
+              &part;&rho;/&part;t + &nabla; &middot; (&rho;<strong>u</strong>) = 0<br>
+              &part;(&rho;<strong>u</strong>)/&part;t + &nabla; &middot; (&rho;<strong>u</strong> &otimes; <strong>u</strong>) = -&nabla;p + &nabla; &middot; &tau; + &rho;<strong>g</strong><br>
+              &tau; = &mu;[&nabla;<strong>u</strong> + (&nabla;<strong>u</strong>)<sup>T</sup> - 2/3(&nabla; &middot; <strong>u</strong>)<strong>I</strong>] + &zeta;(&nabla; &middot; <strong>u</strong>)<strong>I</strong><br>
+              &rho;c<sub>p</sub>(&part;T/&part;t + <strong>u</strong> &middot; &nabla;T) = &nabla; &middot; (k&nabla;T) + &tau; : &nabla;<strong>u</strong> + &beta;T(dp/dt)
+            </div>
+            <div style="font-size:0.75rem; color:#64748b; margin-top:0.4rem;">Derived using complete 3D compressibility assumptions.</div>
+          `
+        },
+        goodSlide: {
+          title: "Vortex Shedding Mechanism & Induced Drag Reduction",
+          content: `
+            <div style="display:flex; gap:0.75rem; align-items:center; margin-bottom:0.5rem;">
+              <div style="flex:1; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:0.6rem; text-align:center;">
+                <div style="font-size:0.7rem; color:#64748b; text-transform:uppercase;">Baseline Trailing Edge</div>
+                <div style="font-size:1.1rem; font-weight:bold; color:var(--danger);">&Delta;p = 4.2 kPa</div>
+                <div style="font-size:0.7rem; color:#475569;">Unstable Vortex Shedding</div>
+              </div>
+              <div style="font-size:1.2rem; color:var(--accent); font-weight:bold;">&rarr;</div>
+              <div style="flex:1; background:#eff6ff; border:1px solid #93c5fd; border-radius:6px; padding:0.6rem; text-align:center;">
+                <div style="font-size:0.7rem; color:var(--primary); text-transform:uppercase;">Serrated Modification</div>
+                <div style="font-size:1.1rem; font-weight:bold; color:var(--success);">&Delta;p = 2.1 kPa</div>
+                <div style="font-size:0.7rem; color:#475569;">50% Wake Energy Attenuation</div>
+              </div>
+            </div>
+            <div class="callout-box">
+              <strong style="color:var(--primary);">Physical Principle:</strong> Serrations break coherent vortex tubes into smaller stream-wise filaments, eliminating the low-pressure suction zone.
+            </div>
+          `
+        },
+        analysis: {
+          whyBadFailed: "Dumping four lines of raw partial differential equations without defining boundary conditions or variables does not impress an audience; it creates cognitive gridlock.",
+          whyGoodWorked: "Substitutes raw mathematical formalism with the underlying physical mechanism. Quantifies the delta (&Delta;p reduction) and connects the mechanical alteration directly to the aerodynamic performance gain."
+        }
+      }
+    ];
+    // --- 3. Rubric Matrix Data ---
+    const presentationRubricData = [
+      {
+        id: "calibration",
+        title: "1. Audience Calibration & Framing",
+        weight: 15,
+        tiers: [
+          { score: 15, name: "Exemplary", desc: "Framed perfectly for the target venue (advisory help, scientific priority, or operational ROI); zero jargon mismatch." },
+          { score: 12, name: "Proficient", desc: "Clearly aligned with audience needs; minor instances of excessive technical detail or omitted operational context." },
+          { score: 9, name: "Developing", desc: "Generic framing; delivers a coursework lab report summary regardless of whether speaking to peers or executives." },
+          { score: 5, name: "Unsatisfactory", desc: "Completely misjudged audience; alienates managers with code dumps or bores specialists with high-school summaries." }
+        ]
+      },
+      {
+        id: "structure",
+        title: "2. Narrative Structure & Timing Discipline",
+        weight: 20,
+        tiers: [
+          { score: 20, name: "Exemplary", desc: "Follows strict structural timing; transitions are crisp; finishes precisely within allotted time (&plusmn;30 sec)." },
+          { score: 16, name: "Proficient", desc: "Logical narrative flow; pacing accelerates or slows noticeably, but finishes within time limit." },
+          { score: 12, name: "Developing", desc: "Unbalanced allocation; spends 70% of time on background, rushing through validation data and conclusion." },
+          { score: 6, name: "Unsatisfactory", desc: "Disjointed narrative; severely exceeds time limit or gets cut off by session chair before reaching results." }
+        ]
+      },
+      {
+        id: "visuals",
+        title: "3. Visual Design & Cognitive Load",
+        weight: 20,
+        tiers: [
+          { score: 20, name: "Exemplary", desc: "Zero text walls; visual hierarchy anchored by diagrams and high-contrast trend plots; all text &ge; 18 pt." },
+          { score: 16, name: "Proficient", desc: "Clean visuals with informative titles; occasional bullet point lists, but font scaling remains legible from back of room." },
+          { score: 12, name: "Developing", desc: "Heavy bullet points; raw default spreadsheet graphics; small 12 pt fonts; axis units occasionally missing." },
+          { score: 6, name: "Unsatisfactory", desc: "Unreadable text walls; screenshots of raw code/spreadsheets; low-contrast color palettes; unreadable graphs." }
+        ]
+      },
+      {
+        id: "rigor",
+        title: "4. Technical Rigor & Data Integrity",
+        weight: 20,
+        tiers: [
+          { score: 20, name: "Exemplary", desc: "Claims strictly bounded by data; sample sizes (n) and uncertainties (&plusmn;) stated; physical mechanisms explained." },
+          { score: 16, name: "Proficient", desc: "Technically sound; error bounds shown on charts but physical explanation of anomalies is superficial." },
+          { score: 12, name: "Developing", desc: "Over-extrapolates single test runs; dismisses anomalous data as 'noise'; lacks statistical foundation." },
+          { score: 6, name: "Unsatisfactory", desc: "Unsubstantiated engineering claims; erroneous physical explanations; hides failed trials or discrepancies." }
+        ]
+      },
+      {
+        id: "delivery",
+        title: "5. Verbal Delivery & Presence",
+        weight: 10,
+        tiers: [
+          { score: 10, name: "Exemplary", desc: "Maintains audience eye contact; speaks extemporaneously from prompts; confident stance; clear pacing." },
+          { score: 8, name: "Proficient", desc: "Clear voice and good engagement; occasionally looks back at the projection screen to find place." },
+          { score: 6, name: "Developing", desc: "Reads verbatim from note cards or slide text; frequent filler words ('um', 'uh'); stationary posture." },
+          { score: 3, name: "Unsatisfactory", desc: "Monotone mumbling facing the screen; completely disengaged from audience; inaudible volume." }
+        ]
+      },
+      {
+        id: "defense",
+        title: "6. Q&A Defense & Receptivity",
+        weight: 15,
+        tiers: [
+          { score: 15, name: "Exemplary", desc: "Listens actively; validates inquirer questions; differentiates verified data from scope limits; unflappable composure." },
+          { score: 12, name: "Proficient", desc: "Answers questions directly and accurately; occasionally defensive when assumptions are challenged." },
+          { score: 9, name: "Developing", desc: "Rambles around questions; guesses or speculates on unknown parameters rather than admitting scope boundaries." },
+          { score: 4, name: "Unsatisfactory", desc: "Confrontational or completely unable to answer fundamental queries regarding setup, boundary conditions, or data." }
+        ]
+      }
+    ];
+
+    // Tracking current scores
+    const currentPresScores = {};
+    // --- 4. Pre-Flight Checklist Data ---
+    const preflightItems = [
+      "Target venue and primary audience mindset confirmed (advisory unblocking, peer scrutiny, or executive ROI).",
+      "Slide title bars feature affirmative engineering conclusions, not generic topic labels ('Results').",
+      "Every graph axis displays an explicit physical variable name, symbol, and standard SI unit in parentheses.",
+      "All text, data callouts, and legend labels are scaled to &ge; 18 pt font for rear-room legibility.",
+      "Sample sizes (n), replicates, and uncertainty margins (&plusmn;SD or CI) are explicitly stated on all validation plots.",
+      "Zero walls of text: no slide contains more than 3 bullet points or paragraphs of running narrative.",
+      "Raw partial differential equations and circuit netlists have been replaced by functional block diagrams.",
+      "Spoken delivery has been timed across 2 dry runs and finishes comfortably within the session ceiling.",
+      "Backup slides prepared for deep technical inquiries (schematics, mesh independence, calibration data).",
+      "Presenter view, slide clicker / laser pointer, and hardware display adapter (HDMI/USB-C) tested on projector.",
+      "First 60 seconds (Hook & Bottom Line) memorized cold to eliminate initial podium anxiety.",
+      "Tactical phrases ready for handling hostile queries, unknown answers, and acknowledged limitations."
+    ];
+    // --- Render Functions ---
+    let activeBlueprintIdx = 0;
+    function switchBlueprint(idx) {
+      activeBlueprintIdx = idx;
+      document.querySelectorAll("#tab-blueprints .sub-btn").forEach((btn, i) => {
+        btn.classList.toggle("active", i === idx);
+      });
+      renderBlueprint();
+    }
+
+    function renderBlueprint() {
+      const bp = blueprintsData[activeBlueprintIdx];
+      const container = document.getElementById("blueprint-details-container");
+      container.innerHTML = `
+        <h3 style="margin-bottom:0.25rem;">${bp.title}</h3>
+        <p style="font-size:0.85rem; color:var(--slate-600); margin-bottom:1rem;">${bp.subtitle}</p>
+        
+        <div style="background:var(--primary-light); border:1px solid #bfdbfe; border-radius:var(--radius); padding:0.75rem 1rem; margin-bottom:1.25rem; font-size:0.85rem; font-weight:600; color:var(--primary);">
+          Pacing &amp; Capacity Target: ${bp.slidesTarget}
+        </div>
+
+        <h4 style="font-size:0.95rem; margin-bottom:0.5rem; color:var(--slate-800);">Recommended Narrative Timeline</h4>
+        <div class="timeline-container">
+          ${bp.timeline.map(node => `
+            <div class="timeline-node">
+              <div class="timeline-time">${node.time}</div>
+              <div class="timeline-title">${node.title}</div>
+              <div class="timeline-desc">${node.desc}</div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="callout-box" style="border-left-color:var(--warning); background:var(--warning-bg); margin:1.25rem 0;">
+          <strong style="color:var(--warning);">The Golden Rule:</strong> ${bp.goldenRule}
+        </div>
+
+        <h4 style="font-size:0.95rem; margin-bottom:0.5rem; color:var(--danger);">Common Undergraduate Traps to Eliminate</h4>
+        <ul style="padding-left:1.25rem; font-size:0.9rem; color:var(--slate-700); line-height:1.7;">
+          ${bp.traps.map(trap => `<li>${trap}</li>`).join('')}
+        </ul>
+      `;
+    }
+
+    let activeRedesignIdx = 0;
+    function switchRedesign(idx) {
+      activeRedesignIdx = idx;
+      document.querySelectorAll("#tab-studio .sub-btn").forEach((btn, i) => {
+        btn.classList.toggle("active", i === idx);
+      });
+      renderRedesign();
+    }
+
+    function renderRedesign() {
+      const rd = redesignsData[activeRedesignIdx];
+      const container = document.getElementById("redesign-workspace");
+      container.innerHTML = `
+        <h3 style="margin-bottom:0.35rem;">${rd.title}</h3>
+        <p style="font-size:0.85rem; color:var(--slate-600); margin-bottom:1rem;">Context: ${rd.context}</p>
+
+        <div class="comparison-grid">
+          <!-- Bad Slide -->
+          <div class="slide-mockup slide-mockup-bad">
+            <div class="slide-mockup-header">
+              <span>&#x2717; Flawed Student Slide</span>
+              <span class="badge badge-danger">High Cognitive Load</span>
+            </div>
+            <div class="slide-canvas">
+              <div class="slide-title-bar" style="color:var(--danger);">${rd.badSlide.title}</div>
+              ${rd.badSlide.content}
+            </div>
+          </div>
+
+          <!-- Good Slide -->
+          <div class="slide-mockup slide-mockup-good">
+            <div class="slide-mockup-header">
+              <span>&#x2713; Professional Engineering Slide</span>
+              <span class="badge badge-success">Optimized Delivery</span>
+            </div>
+            <div class="slide-canvas">
+              <div class="slide-title-bar" style="color:var(--primary);">${rd.goodSlide.title}</div>
+              ${rd.goodSlide.content}
+            </div>
+          </div>
+        </div>
+
+        <div class="analysis-panel">
+          <h4 style="font-size:0.95rem; color:var(--slate-900); margin-bottom:0.5rem;">Why the Transformation Succeeded:</h4>
+          <div style="font-size:0.85rem; color:var(--slate-700); line-height:1.6; margin-bottom:0.5rem;">
+            <strong style="color:var(--danger);">Why the original failed:</strong> ${rd.analysis.whyBadFailed}
+          </div>
+          <div style="font-size:0.85rem; color:var(--slate-700); line-height:1.6;">
+            <strong style="color:var(--success);">Why the redesign worked:</strong> ${rd.analysis.whyGoodWorked}
+          </div>
+        </div>
+      `;
+    }
+
+    function initPresentationRubric() {
+      const container = document.getElementById("presentation-rubric-container");
+      container.innerHTML = "";
+
+      presentationRubricData.forEach(c => {
+        currentPresScores[c.id] = c.tiers[1].score; // default to proficient
+
+        const critDiv = document.createElement("div");
+        critDiv.className = "rubric-criterion";
+        critDiv.innerHTML = `
+          <div class="criterion-head">
+            <span class="criterion-title">${c.title}</span>
+            <span class="criterion-weight">${c.weight} pts</span>
+          </div>
+          <div class="tier-grid">
+            ${c.tiers.map((t, idx) => `
+              <div class="tier-box ${idx === 1 ? 'selected' : ''}" onclick="selectPresTier('${c.id}', ${t.score}, this)">
+                <div class="tier-header">
+                  <span>${t.name}</span>
+                  <span>${t.score} pts</span>
+                </div>
+                <div>${t.desc}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+        container.appendChild(critDiv);
+      });
+      calculatePresentationScore();
+    }
+
+    function selectPresTier(critId, score, el) {
+      currentPresScores[critId] = score;
+      const parent = el.closest(".tier-grid");
+      parent.querySelectorAll(".tier-box").forEach(b => b.classList.remove("selected"));
+      el.classList.add("selected");
+      calculatePresentationScore();
+    }
+
+    function calculatePresentationScore() {
+      let sum = 0;
+      Object.values(currentPresScores).forEach(v => sum += v);
+      document.getElementById("presentation-total-score").innerText = sum;
+
+      const badge = document.getElementById("presentation-status-badge");
+      if (sum >= 90) {
+        badge.innerText = "Exemplary Presentation (90–100)";
+        badge.style.background = "#dcfce7";
+        badge.style.color = "var(--success)";
+      } else if (sum >= 75) {
+        badge.innerText = "Proficient / Minor Revisions (75–89)";
+        badge.style.background = "#dbeafe";
+        badge.style.color = "var(--accent)";
+      } else if (sum >= 60) {
+        badge.innerText = "Developing / Rehearsal Required (60–74)";
+        badge.style.background = "#fef3c7";
+        badge.style.color = "var(--warning)";
+      } else {
+        badge.innerText = "Unsatisfactory / Redesign Needed (<60)";
+        badge.style.background = "#fee2e2";
+        badge.style.color = "var(--danger)";
+      }
+    }
+
+    function initPreflightChecklist() {
+      const container = document.getElementById("preflight-checklist-items");
+      container.innerHTML = preflightItems.map((item, i) => `
+        <div class="check-item" id="chk-row-${i}" onclick="toggleCheck(${i})">
+          <input type="checkbox" id="chk-box-${i}" onchange="updatePreflightProgress(event)">
+          <label for="chk-box-${i}" class="check-label" onclick="event.stopPropagation()">${item}</label>
+        </div>
+      `).join('');
+    }
+
+    function toggleCheck(idx) {
+      const box = document.getElementById(`chk-box-${idx}`);
+      box.checked = !box.checked;
+      updatePreflightProgress();
+    }
+
+    function updatePreflightProgress(e) {
+      if (e) e.stopPropagation();
+      let checkedCount = 0;
+      preflightItems.forEach((_, i) => {
+        const box = document.getElementById(`chk-box-${i}`);
+        const row = document.getElementById(`chk-row-${i}`);
+        if (box.checked) {
+          checkedCount++;
+          row.classList.add("completed");
+        } else {
+          row.classList.remove("completed");
+        }
+      });
+
+      const pct = Math.round((checkedCount / preflightItems.length) * 100);
+      document.getElementById("preflight-progress").style.width = pct + "%";
+      document.getElementById("preflight-status-text").innerText = `${checkedCount} of ${preflightItems.length} Verified (${pct}%)`;
+
+      const badge = document.getElementById("preflight-badge");
+      if (pct === 100) {
+        badge.innerText = "Cleared for the Podium";
+        badge.style.color = "var(--success)";
+      } else {
+        badge.innerText = "Check Incomplete";
+        badge.style.color = "var(--accent)";
+      }
+    }
+
+    function switchMainTab(tabId) {
+      document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+      
+      document.getElementById(tabId).classList.add("active");
+      
+      const tabOrder = ["tab-blueprints", "tab-studio", "tab-rubric", "tab-defense"];
+      const idx = tabOrder.indexOf(tabId);
+      if (idx !== -1) {
+        document.querySelectorAll(".nav-btn")[idx].classList.add("active");
+      }
+    }
+
+    // Initialize all components on load
+    window.addEventListener("DOMContentLoaded", () => {
+      renderBlueprint();
+      renderRedesign();
+      initPresentationRubric();
+      initPreflightChecklist();
+    });
+  </script>
+</body>
+</html>
